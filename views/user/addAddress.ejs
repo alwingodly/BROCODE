@@ -1,0 +1,176 @@
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 ftco-animate">
+        <form
+          action="/addaddress?account=<%= account %>"
+          class="billing-form"
+          id="billingForm"
+          method="post"
+        >
+          <%= error %>
+          <h3 class="mb-4 billing-heading">Billing Details</h3>
+          <div class="row align-items-end">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="userName">Your Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="userName"
+                />
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="country">State</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="state"
+                />
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="streetaddress">Street Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="House number and street name"
+                  name="address"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="streetaddress">Landmark (optional)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="landmark"
+                />
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="towncity">Town / City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="city"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="postcodezip">Postcode / ZIP *</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="zip"
+                />
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="number"
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="emailaddress">Email Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                  name="email"
+                />
+              </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col-md-12">
+              <div class="form-group mt-4">
+                <div class="radio">
+                  <label class="mr-3">
+                    <input type="radio" name="type" value="home" required />
+                    Home
+                  </label>
+                  <label>
+                    <input type="radio" name="type" value="office" required />
+                    Office
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="text-center mt-4 pt-2">
+              <label>
+                <input type="checkbox" name="setDefault" /> Set as Default
+                Address
+              </label>
+            </div>
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem"
+              >
+                Save and Deliver
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+<script>
+  var form = document.getElementById("billingForm");
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    var userName = form.elements.userName.value.trim();
+    var state = form.elements.state.value.trim();
+    var address = form.elements.address.value.trim();
+    var city = form.elements.city.value.trim();
+    var zip = form.elements.zip.value.trim();
+    var number = form.elements.number.value.trim();
+    var email = form.elements.email.value.trim();
+    var type = form.elements.type.value;
+    var setError = form.elements.setDefault.checked;
+
+    if (
+      userName === "" ||
+      state === "" ||
+      address === "" ||
+      city === "" ||
+      zip === "" ||
+      number === "" ||
+      email === ""
+    ) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
+
+    form.submit();
+  });
+</script>

@@ -1,0 +1,487 @@
+<link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<style>
+  select[name="deliveryStatus"] {
+  appearance: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+}
+
+select[name="deliveryStatus"]:focus {
+  border-color: #66afe9;
+  box-shadow: 0 0 5px rgba(102, 175, 233, 0.6);
+}
+
+/* Style the selected option */
+select[name="deliveryStatus"] option[selected] {
+  font-weight: bold;
+}
+
+/* Style the options */
+select[name="deliveryStatus"] option {
+  font-weight: normal;
+}
+
+/* Customize the dropdown arrow */
+select[name="deliveryStatus"]::-ms-expand {
+  display: none;
+}
+
+select[name="deliveryStatus"]::after {
+  content: '\25BC';
+  color: #888;
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+button.btn-rounded {
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+button.btn-info {
+  background-color: #17a2b8;
+  color: #fff;
+  border: none;
+}
+
+button.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: none;
+}
+
+button.btn-success {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+}
+
+button.btn-rounded:hover {
+  opacity: 0.8;
+}
+
+button.btn-rounded:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+</style>
+<div class="container-scroller">
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+      <li class="nav-item profile">
+        <div class="profile-desc">
+          <div class="profile-pic">
+            <div class="count-indicator">
+              <img class="img-xs rounded-circle " src="/assets/images/faces/face15.jpg" alt="">
+              <span class="count bg-success"></span>
+            </div>
+            <div class="profile-name">
+              <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+            </div>
+          </div>
+          <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+            aria-labelledby="profile-dropdown">
+            <a href="#" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-settings text-primary"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-onepassword  text-info"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-calendar-today text-success"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item nav-category">
+        <span class="nav-link">Navigation</span>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/admin-panel">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">Dashboard</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="product">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">products</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="coustomer">
+          <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+          </span>
+          <span class="menu-title">Coustomer</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="order">
+          <span class="menu-icon">
+            <i class="mdi mdi-playlist-play"></i>
+          </span>
+          <span class="menu-title">Order</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/admin-panel/sales-report">
+          <span class="menu-icon">
+            <i class="mdi mdi-chart-gantt"></i>
+          </span>
+          <span class="menu-title">Sales Report</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="coupon">
+          <span class="menu-icon">
+            <i class="mdi mdi-table-large"></i>
+          </span>
+          <span class="menu-title">Coupon</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="offer">
+          <span class="menu-icon">
+            <i class="mdi mdi-paper-cut-vertical"></i>
+          </span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="main-panel">
+    <div class="container-wrapper">
+      <div class="row ">
+        <div class="col-md-10 grid-margin">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <button class="btn-rounded btn-primary mb-3 filter-btn" id="all-products-btn" data-status="cancelled">All</button>
+                  <button class="btn-rounded btn-primary mb-3 filter-btn" id="cancelled-products-btn" data-status="cancelled">Cancelled Products</button>
+                  <button class="btn-rounded btn-primary mb-3 filter-btn" id="delivered-products-btn" data-status="delivered">Delivered Products</button>
+                  <button class="btn-rounded btn-primary mb-3 filter-btn" id="returned-products-btn" data-status="delivered">Returned Products</button>
+                  <button class="btn-rounded btn-primary mb-3 filter-btn" id="placed-products-btn" data-status="delivered">Others</button>
+                 
+                </div>
+              </div>
+              <h4 class="card-title">ORDERS</h4>
+              <div class="table-responsive">
+                <table class="table mr-5 py-5" id="myTable">
+                  <thead>
+                    <tr>
+                      <th class="text-light">Order No</th>
+                      <th class="text-light">Order date</th>
+                      <th class="text-light">Name</th>
+                      <th class="text-light">Address</th>
+                      <th class="text-light">Pincode</th>
+                      <th class="text-light">Number</th>
+                      <th class="text-light">Amount</th>
+                      <th class="text-light">Product Id</th>
+                      <th class="text-light">Payment method</th>
+                      <th class="text-light">order status</th>
+                      <th class="text-light">delivery status</th>
+                      <th class="text-light">Option</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% order.reverse().forEach(function(order , index) { %>
+                      <% order.products.forEach(function(product) { %>
+                        <tr class="sales-row" data="<%=product.orderstatus %>" >
+                          <td>
+                            <%= order._id %>
+                          </td>
+                          <td>
+                            <%= new Date(order.createdAt).toLocaleString('en-US', { month: 'short' , day: 'numeric' ,
+                              year: 'numeric' , hour12: true }) %>
+                          </td>
+                          <td>
+                            <%= order.deliveryDetails.userName %>
+                          </td>
+                          <td>
+                            <%= order.deliveryDetails.house %>, <p>
+                                <%= order.deliveryDetails.landmark %>, <%= order.deliveryDetails.city %>, <%=
+                                      order.deliveryDetails.state %>
+                              </p>
+                          </td>
+                          <td>
+                            <%= order.deliveryDetails.zip %>
+                          </td>
+                          <td>
+                            <%= order.deliveryDetails.number %>
+                          </td>
+                          <td>
+                            $ <%= product.quantity * product.price %>
+                          </td>
+
+                          <td>
+                            <%=product.prodId %>
+                          </td>
+                          <td>
+                            <%= order.paymentMethod %>
+                          </td>
+                          <td>
+                            <% if (product.orderstatus) { %>
+                              <% if (product.orderstatus==='cancelled' ) { %>
+                                <span style="color: red;">
+                                  <%= product.orderstatus %>
+                                </span>
+                                <% } else if (product.orderstatus==='returned' ) { %>
+                                  <span style="color: yellow;">
+                                    <%= product.orderstatus %>
+                                  </span>
+                                  <% } else if (product.orderstatus==='delivered' ) { %>
+                                    <span style="color: green;">
+                                      <%= product.orderstatus %>
+                                    </span>
+                                  <% } else { %>
+                                    <%= product.orderstatus %>
+                                      <% } %>
+                                        <% } else { %>
+                                          placed
+                                          <% } %>
+
+
+                          </td>
+                          <form action="/admin/orderstatus/?orderId=<%= order._id %>&productId=<%= product.prodId %>"
+                            method="post">
+                            <td>
+                              <select name="deliveryStatus" <%=( order.paymentstatus==='failed' ) ? 'disabled' : '' %>>
+                                <% if (product.orderstatus==='returned' ) { %>
+                                  <option value="returned" selected>Returned</option>
+                                  <% } else if (product.orderstatus==='cancelled' ){ %>
+                                    <option value="cancelled" selected>Cancelled</option>
+                                    <% } else { %>
+                                      <option value="default" <%=product.deliverystatus==='default' ? 'selected' : '' %>
+                                        > <%= order.deliverystatus %>
+                                      </option>
+                                      <option value="shipped" <%=product.deliverystatus==='shipped' ? 'selected' : '' %>
+                                        > shipped </option>
+                                      <option value="outofdelivery" <%=product.deliverystatus==='outofdelivery'
+                                        ? 'selected' : '' %>> out of delivery </option>
+                                      <option value="delivered" <%=product.deliverystatus==='delivered' ? 'selected'
+                                        : '' %>>delivered</option>
+                                      <option value="cancelled" <%=product.deliverystatus==='cancelled' ? 'selected'
+                                        : '' %>> cancelled </option>
+                                      <option value="returned" <%=product.deliverystatus==='returned' ? 'selected' : ''
+                                        %>> returned </option>
+                                     
+                                      <% } %>
+                              </select>
+                            </td>
+                            <td>
+                              <% if ((product.orderstatus === 'returned' || product.orderstatus === 'cancelled')&&(product.deliverystatus !== 'finished')) { %>
+                                <button id="approve-button" type="submit" class="btn-rounded btn-info">Approve</button>
+                              <% } else if (product.deliverystatus === 'finished') { %>
+                                <button type="button" class="btn-rounded btn-secondary">Done</button>
+                                <% } else if (product.deliverystatus === 'delivered') { %>
+                                  <button type="button" class="btn-rounded btn-success">Dileverd</button>
+                              <% } else { %>
+                                <button type="submit" class="btn-rounded btn-primary" id="saveButton">Save</button>
+                              <% } %>
+                            </td>
+                          </form>
+                          </form>
+
+                        </tr>
+                        <% }) %>
+                          <% }) %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+// // Get the button elements
+// const approveButton = document.getElementById('approve-button');
+// const doneButton = document.getElementById('done-button');
+
+// // Check if the button state is stored in localStorage
+// const isApproved = localStorage.getItem('buttonState') === 'approved';
+
+// // Set the initial button state
+// if (isApproved) {
+//   approveButton.style.display = 'none';
+//   doneButton.style.display = 'block';
+// } else {
+//   approveButton.style.display = 'block';
+//   doneButton.style.display = 'none';
+// }
+
+// // Add click event listener to the approve button
+// approveButton.addEventListener('click', () => {
+//   // Hide the approve button
+//   approveButton.style.display = 'none';
+//   // Show the done button
+//   doneButton.style.display = 'block';
+  
+//   // Store the button state in localStorage
+//   localStorage.setItem('buttonState', 'approved');
+// });
+
+</script>
+<!-- 
+<script>
+  function disableButton(button) {
+    button.disabled = true;
+    button.textContent = 'Saving...';
+  }
+</script> -->
+<script>
+  var approveButton = document.getElementById('approve-button');
+  var doneButton = document.getElementById('done-button');
+
+  if (approveButton) {
+    approveButton.addEventListener('click', function () {
+      approveButton.style.display = 'none';
+      doneButton.style.display = 'inline-block';
+    });
+  }
+</script>
+<script>
+  document.getElementById('all-products-btn').addEventListener('click',function(){
+      filterAll('cancelled','returned','delivered')
+    })
+    document.getElementById('cancelled-products-btn').addEventListener('click',function(){
+      filterCancelled('cancelled')
+    })
+    document.getElementById('returned-products-btn').addEventListener('click',function(){
+      filterReturned('returned')
+    })
+    document.getElementById('delivered-products-btn').addEventListener('click',function(){
+      filterDelivered('delivered')
+    })
+    document.getElementById('placed-products-btn').addEventListener('click',function(){
+      filterPlaced()
+    })
+
+    //All
+    function filterAll(cancelled ,returned,delivered){
+   var rows = document.getElementsByClassName('sales-row')
+   for(var i = 0; i<rows.length; i++){
+   var row = rows[i]
+    var data = row.getAttribute('data')
+    console.log(data,"👏");
+    if(data === ''|| data === cancelled ||data === delivered ||data === returned){
+      row.style.display = ''
+    }
+    else{
+      row.style.display = 'none'
+    }
+   }
+  }
+
+  function filterCancelled(cancelled){
+   var rows = document.getElementsByClassName('sales-row')
+   for(var i = 0; i<rows.length; i++){
+   var row = rows[i]
+    var data = row.getAttribute('data')
+    console.log(data,"👏");
+    if(data === '' || data === cancelled ){
+      row.style.display = ''
+    }
+    else{
+      row.style.display = 'none'
+    }
+   }
+  }
+  function filterDelivered(delivered){
+   var rows = document.getElementsByClassName('sales-row')
+   for(var i = 0; i<rows.length; i++){
+   var row = rows[i]
+    var data = row.getAttribute('data')
+    console.log(data,"👏");
+    if(data === '' || data === delivered){
+      row.style.display = ''
+    }
+    else{
+      row.style.display = 'none'
+    }
+   }
+  }
+  function filterReturned(returned){
+   var rows = document.getElementsByClassName('sales-row')
+   for(var i = 0; i<rows.length; i++){
+   var row = rows[i]
+    var data = row.getAttribute('data')
+    if(data === '' || data === returned){
+      console.log(data,"👏");
+      row.style.display = ''
+    }
+    else{
+      row.style.display = 'none'
+    }
+   }
+  }
+  function filterPlaced(){
+   var rows = document.getElementsByClassName('sales-row')
+   for(var i = 0; i<rows.length; i++){
+   var row = rows[i]
+    var data = row.getAttribute('data')
+    console.log(data,"llllllllll");
+    if(data === null || data === ''){
+      console.log(data,"👏");
+      row.style.display = ''
+    }
+    else{
+      row.style.display = 'none'
+    }
+   }
+  }
+</script>

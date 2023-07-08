@@ -1,0 +1,217 @@
+<style>
+.container {
+  display: flex;
+}
+
+.form-container {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.table-container {
+  flex: 1;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2 {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#coupon-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+#coupon-table th,
+#coupon-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+
+</style>
+<div class="container-scroller">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item profile">
+            <div class="profile-desc">
+              <div class="profile-pic">
+                <div class="count-indicator">
+                  <img class="img-xs rounded-circle " src="/uploads/1686162065347-ADMIN.jpg" alt="">
+                  <span class="count bg-success"></span>
+                </div>
+                <div class="profile-name">
+                  <h5 class="mb-0 font-weight-normal">Admin</h5>
+                </div>
+              </div>
+              <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+              <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list" aria-labelledby="profile-dropdown">
+                <div class="dropdown-divider"></div>
+                      <i style="font-size: 25px;" class="mdi mdi-logout text-danger ml-5"></i>
+                    <a href="/admin/logout" class="preview-subject mb-1 btn">Log out</a>
+              </div>
+            </div>
+          </li>
+            <li class="nav-item nav-category">
+                <span class="nav-link">Navigation</span>
+            </li>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/admin/admin-panel">
+            <span class="menu-icon">
+              <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">dashboard</span>
+          </a>
+        </li>
+        <br />
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/product">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-speedometer"></i>
+                    </span>
+                    <span class="menu-title">products</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coustomer">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-laptop"></i>
+                    </span>
+                    <span class="menu-title">Coustomer</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/order">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-playlist-play"></i>
+                    </span>
+                    <span class="menu-title">Order</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/sales-report">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-chart-gantt"></i>
+                  </span>
+                  <span class="menu-title">Sales Report</span>
+                </a>
+              </li>
+              <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coupon">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-table-large"></i>
+                    </span>
+                    <span class="menu-title">Coupon</span>
+                </a>
+            </li>
+            <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="offer">
+          <span class="menu-icon">
+            <i class="mdi mdi-paper-cut-vertical"></i>
+          </span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+        </ul>
+    </nav>
+
+    <div class="container-fluid d-flex col-md-10 mt-5">
+        <div class="form-container col-md-4">
+          <h1 class="text-light">Create Coupon</h1>
+          <form id="coupon-form" action="/admin/createCoupon" method="POST">
+            <div class="form-group">
+              <label for="price-range">price range:</label>
+              <input type="text" id="price-range" name="priceRange" required>
+            </div>
+    
+            <div class="form-group">
+              <label for="discount-amount">Discount Amount:</label>
+              <input type="number" id="discount-amount" name="discountAmount" required>
+            </div>
+    
+            <div class="form-group">
+              <label for="expiration-date">Expiration Date:</label>
+              <input type="date" id="expiration-date" name="expirationDate" required>
+            </div>
+    
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea id="description" name="description"></textarea>
+            </div>
+    
+            <button type="submit">Create Coupon</button>
+          </form>
+        </div>
+    
+        <div class="table-container col-md-8">
+          <h2 class="text-light">Coupon Details</h2>
+          <table id="coupon-table">
+            <thead>
+              <tr>
+                <th>Coupon Code</th>
+                <th>Price Range</th>
+                <th>Discount Amount</th>
+                <th>Expiration Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% coupon.reverse().forEach(coupon => { %>
+                <tr>
+                  <td class="text-light"><%= coupon.couponCode %></td>
+                  <td class="text-light"><%= coupon.priceRange %></td>
+                  <td class="text-light"><%= coupon.discountAmount %></td>
+                  <td class="text-light"><%= coupon.expirationDate %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          
+        </div>
+      </div>

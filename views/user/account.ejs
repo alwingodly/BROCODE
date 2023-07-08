@@ -1,0 +1,257 @@
+<link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<link rel="stylesheet" href="/css/templatemo-style.css">
+
+<style>
+  .wallet-box {
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .wallet-amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+
+  .wallet-card {
+    background-color: #645e5e47;
+  }
+
+  .wallet-box {
+    padding: 20px;
+  }
+
+  .wallet-amount {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .text-dark {
+    color: #000;
+  }
+</style>
+<Style>
+  .address-box {
+border: 1px solid #ccc;
+padding: 10px;
+background-color: #fff;
+}
+/* Custom styles for the navbar */
+#sidebar {
+padding: 20px;
+}
+
+.profile-pic {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background-color: #fff;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.profile-name {
+margin-top: 10px;
+}
+
+.nav-link {
+color: #fff;
+text-decoration: none;
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.menu-icon {
+margin-right: 10px;
+}
+
+.menu-title {
+font-weight: bold;
+}
+
+/* Add more custom styles as needed */
+
+</Style>
+<nav class="bg-dark d-md-none py-0" id="sidebar">
+  <ul class="nav justify-content-center">
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/account">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-account"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="accountAddress">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-map-marker"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/accountOrders">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-cart"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/rewards">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-gift"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/logout">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-logout"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+<div class="container-scroller bg-secondary">
+  <nav class="sidebar sidebar-offcanvas bg-secondary" id="sidebar">
+    <ul class="nav">
+      
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/account">
+          <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+          </span>
+          <span class="menu-title">User Profile</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="accountAddress">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">Address</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/accountOrders">
+          <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+          </span>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/rewards">
+          <span class="menu-icon">
+            <i class="mdi mdi-gift"></i>
+          </span>
+          <span class="menu-title">Rewards</span>
+        </a>
+      </li>
+      
+     
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/logout">
+          <span class="menu-icon">
+            <i class="mdi mdi-playlist-play"></i>
+          </span>
+          <span class="menu-title">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+
+
+  <div class="container m-5">
+    <div class="row">
+      <div class="col-md-8">
+        <h3>User Information</h3>
+        <form action="/updateUser" method="POST">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="firstName" class="text-dark">First Name</label>
+              <input type="text" class="form-control" id="userName" name="username" placeholder="Enter your first name"
+                value="<%= user.username %>">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="mobileNumber" class="text-dark">Mobile Number</label>
+              <input type="tel" class="form-control" id="mobileNumber" name="number"
+                placeholder="Enter your mobile number" value="<%= user.number %>">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="email" class="text-dark">Email</label>
+              <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"
+                value="<%= user.email %>" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="gender" class="text-dark">Gender</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gender" id="male" value="male" <% if
+                (user.gender==='male' ) { %>checked<% } %>>
+                <label class="form-check-label" for="male">
+                  Male
+                </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="gender" id="female" value="female" <% if
+                (user.gender==='female' ) { %>checked<% } %>>
+                <label class="form-check-label" for="female">
+                  Female
+                </label>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+      </div>
+      <div class="col-md-4 text-center mt-2">
+        <div class="card wallet-card">
+          <div class="card-header">
+            <h3 class="mb-0">YOUR WALLET</h3>
+          </div>
+          <% if (wallet) { %>
+            <div class="card-body">
+              <div class="wallet-box">
+                <h4 class="wallet-amount">$<%= wallet.wallet %>
+                </h4>
+                <p class="text-dark">Available Balance</p>
+              </div>
+            </div>
+            <% } else { %>
+              <div class="card-body">
+                <div class="wallet-box">
+                  <h4 class="wallet-amount">$0</h4>
+                  <p class="text-dark">Available Balance</p>
+                </div>
+              </div>
+              <% } %>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  
+  
+  </div>
+
+  

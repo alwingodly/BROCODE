@@ -1,0 +1,941 @@
+<link rel="stylesheet" href="/css/toggle.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/css/bootstrap.min.css">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/uploads/bg_2.jpg');"
+  data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end justify-content-center">
+      <div class="col-md-9 ftco-animate mb-5 text-center">
+        <p class="breadcrumbs mb-0">
+          <span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span>
+          <span>Products <i class="fa fa-chevron-right"></i></span>
+        </p>
+        <h2 class="mb-0 bread">Products</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section bg-white">
+  <div class="container">
+    <div id="filter-options" class="col mb-3"></div>
+    <div class="row">
+      <div class="col-lg-3 ">
+
+
+        
+<!-- Category Section -->
+
+
+
+<div class="sidebar-box ftco-animate">
+  <div class="categories">
+    <button class="accordion-button bg-light" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#sort-options">
+      <span id="sort-button-label">Sort</span>
+      <span class="arrow"></span>
+    </button>
+    <ul class="sort-options p-0 collapse" id="sort-options">
+      <li>
+        <label class="size-label">
+          <input type="radio" name="sort-option" class="sort-checkbox" data-sort="price-low-to-high">
+          Price (Low to High)
+        </label>
+      </li>
+      <li>
+        <label class="size-label">
+          <input type="radio" name="sort-option" class="sort-checkbox" data-sort="price-high-to-low">
+          Price (High to Low)
+        </label>
+      </li>
+      <li>
+        <label class="size-label">
+          <input type="radio" name="sort-option" class="sort-checkbox" data-sort="size-low-to-high">
+          Size (Low to High)
+        </label>
+      </li>
+      <li>
+        <label class="size-label">
+          <input type="radio" name="sort-option" class="sort-checkbox" data-sort="size-high-to-low">
+          Size (High to Low)
+        </label>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const sortOptions = document.querySelectorAll('.sort-checkbox');
+  const sortButtonLabel = document.getElementById('sort-button-label');
+
+  sortOptions.forEach(option => {
+    option.addEventListener('change', (event) => {
+      if (event.target.checked) {
+        sortButtonLabel.textContent = "Sort by: " + event.target.getAttribute('data-sort');
+      }
+    });
+  });
+</script>
+
+
+
+<h4>Filter</h4>
+
+<div class="sidebar-box ftco-animate">
+  <div class="categories">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#category-options">
+      Category
+      <span class="arrow"></span>
+    </button>
+    <ul class="category-options p-0 collapse" id="category-options">
+      <% categories.forEach(function(category) { %>
+        <li>
+          <label class="category-label">
+            <input type="checkbox" class="category-checkbox" data-value="<%= category.category %>" data-valueId="<%= category._id %>">
+            <%= category.category %>
+          </label>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
+
+<!-- Subcategory Section -->
+<div class="sidebar-box ftco-animate">
+  <div class="categories">
+    <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#brand-options">
+      Brands
+      <span class="arrow"></span>
+    </button>
+    <ul class="brand-options p-0 collapse " id="brand-options">
+      <% subcategories.forEach(function(subcategory) { %>
+        <li data-category="<%= subcategory.category %>">
+          <label class="subcategory-label">
+            <input type="checkbox" class="subcategory-checkbox" data-value="<%= subcategory.subCategory %>">
+            <%= subcategory.subCategory %>
+          </label>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
+
+
+
+
+        <!-- ----------------------------------------------------------FLAVOUR------------------------------------------------------- -->
+
+
+
+
+        <div class="sidebar-box ftco-animate">
+          <div class="categories">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true" data-bs-target="#flavor-options">
+              Flavor
+              <span class="arrow"></span>
+            </button>
+            <ul class="flavor-options p-0 collapse" id="flavor-options">
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="lemon">
+                  Lemon
+                </label>
+              </li>
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="Bourbon">
+                  Burboun
+                </label>
+              </li>
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="Dark fruit">
+                  Dark fruit
+                </label>
+              </li>
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="robust">
+                  robust
+                </label>
+              </li>
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="vanilla">
+                  vanilla
+                </label>
+              </li>
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="Classic">
+                  Classic
+                </label>
+              </li>
+              
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="Orange">
+                  Orange
+                </label>
+              </li>
+              
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="Pepper">
+                  Pepper
+                </label>
+              </li>
+              <li>
+                <label class="flavor-label">
+                  <input type="checkbox" class="flavor-checkbox" data-value="Caramel">
+                  Caramel
+                </label>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+
+
+        <!---------------------------------------------------------PRICE RANGE-------------------------------------------------------------  -->
+        
+        
+        <div class="sidebar-box ftco-animate">
+          <div class="categories">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true"
+              data-bs-target="#range-options">
+              Price range
+              <span class="arrow"></span>
+            </button>
+            <ul class="size-options p-0 collapse" id="range-options">
+              <li>
+                <label class="range-label">
+                  <input type="radio" class="range-checkbox" name="price-range" data-min="" data-max="">
+                  featured
+                </label>
+              </li>
+              <li>
+                <label class="range-label">
+                  <input type="radio" class="range-checkbox" name="price-range" data-min="0" data-max="30">
+                  between 0 - 30
+                </label>
+              </li>
+              <li>
+                <label class="range-label">
+                  <input type="radio" class="range-checkbox" name="price-range" data-min="30" data-max="60">
+                  between 30 - 60
+                </label>
+              </li>
+              <li>
+                <label class="range-label">
+                  <input type="radio" class="range-checkbox" name="price-range" data-min="60" data-max="100">
+                  between 60 - 100
+                </label>
+              </li>
+              <li>
+                <label class="range-label">
+                  <input type="radio" class="range-checkbox" name="price-range" data-min="100">
+                  100 and above
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+
+        <!-----------------------------------------------------------SIZE--------------------------------------------------------------------------->
+        
+        
+        
+        <div class="sidebar-box ftco-animate">
+          <div class="categories">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" aria-expanded="true"
+              data-bs-target="#size-options">
+              Size
+              <span class="arrow"></span>
+            </button>
+            <ul class="size-options p-0 collapse" id="size-options">
+              <li>
+                <label class="size-label">
+                  <input type="checkbox" class="size-checkbox" data-value="1500">
+                  1500
+                </label>
+              </li>
+              <li>
+                <label class="size-label">
+                  <input type="checkbox" class="size-checkbox" data-value="1250">
+                  1250
+                </label>
+              </li>
+              <li>
+                <label class="size-label">
+                  <input type="checkbox" class="size-checkbox" data-value="1000">
+                  1000
+                </label>
+              </li>
+              <li>
+                <label class="size-label">
+                  <input type="checkbox" class="size-checkbox" data-value="750">
+                  750
+                </label>
+              </li>
+              <li>
+                <label class="size-label">
+                  <input type="checkbox" class="size-checkbox" data-value="500">
+                  500
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-9">
+        <div class="row mb-4">
+          
+          <div class="col-md-12 d-flex justify-content-between align-items-center">
+            <button id="apply-filters-btn" class="btn btn-primary">Apply Filters</button>
+          </div>
+        </div>
+
+        <div class="row" id="product-list">
+          <% if (products.length === 0) { %>
+            <div class="no-products-container">
+              <img src="/image/No.png" alt="No products">
+            </div>
+          <% } %>
+          <% const productsWithOffer = products.filter(prod => !prod.isBlocked && (prod.offer === true|| prod.catoffer === true)); %>
+          <% const productsWithoutOffer = products.filter(prod => !prod.isBlocked && prod.offer === false && prod.catoffer === false); %>
+          <% [...productsWithOffer, ...productsWithoutOffer].forEach(function(prod) { %>
+            <div class="col-md-4 d-flex">
+              <div class="product ftco-animate shadow">
+                <div class="img d-flex align-items-center justify-content-center" style="background-image: url(/uploads/<%=prod.image%>);">
+                  <div class="desc">
+                    <p class="meta-prod d-flex">
+                      <% if (user && prod.stock !== 0) { %>
+                        <a href="#" class="d-flex align-items-center justify-content-center" onclick="addToCart('<%= prod._id %>', event)">
+                          <span class="flaticon-shopping-bag"></span>
+                        </a>
+                      <% } else if(prod.stock === 0) { %>
+                        <a href="#" class="d-flex align-items-center justify-content-center" onclick="notStock()">
+                          <span class="flaticon-shopping-bag"></span>
+                        </a>
+                      <% } else { %>
+                        <a href="#" class="d-flex align-items-center justify-content-center" onclick="notToCart()">
+                          <span class="flaticon-shopping-bag"></span>
+                        </a>
+                      <% } %>
+                      <% if (user) { %>
+                        <a href="#" class="d-flex align-items-center justify-content-center" onclick="addToWishlist('<%= prod._id %>', event)">
+                          <span class="flaticon-heart"></span>
+                        </a>
+                      <% } else { %>
+                        <a href="#" class="d-flex align-items-center justify-content-center" onclick="notToWishlist()">
+                          <span class="flaticon-heart"></span>
+                        </a>
+                      <% } %>
+                      <a style="text-decoration: none;" href="/product-details?productId=<%= prod._id %>" class="d-flex align-items-center justify-content-center">
+                        <span class="flaticon-visibility"></span>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+                <div class="text text-center">
+                  <% if(prod.offer=== true || prod.catoffer === true) {%>
+                  <span class="sale">
+                    <% if(prod.offerPercentage > prod.catofferPercentage) {%>
+                      <%= prod.offerPercentage%> % off
+                      <%} else {%>
+                        <%= prod.catofferPercentage%> % off
+                        <% } %>
+                  </span>
+                  <% } %>
+                  <a style="text-decoration: none;" href="/product-details?productId=<%= prod._id %>">
+                    <span class="category">
+                      <%= prod.category.category %>
+                    </span>
+                  </a>
+                  <a style="text-decoration: none;" href="/product-details?productId=<%= prod._id %>">
+                    <h2>
+                      <%= prod.productName %>
+                    </h2>
+                  </a>
+                  <span class="size">
+                    <%= prod.size %> ml
+                  </span>
+                  <% if (prod.stock === 0) { %>
+                    <p class="text-danger">
+                      Out of stock
+                    </p>
+                  <% } else if (prod.stock === 1) { %>
+                    <p class="text-success">
+                      Only 1 item left
+                    </p>
+                  <% } else if (prod.stock === 2) { %>
+                    <p class="text-success">
+                      Only 2 items left
+                    </p>
+                  <% } %>
+                  <% if (prod.offer === true || prod.catoffer === true) { %>
+                    <p class="price">
+                      <% if(prod.offerPercentage > prod.catofferPercentage) {%>
+                        <span class="offer-price">$ <%= prod.offerPrice %></span>
+                        <%} else {%>
+                          <span class="offer-price">$ <%= prod.catofferPrice %></span>
+                          <% } %>
+                      <br>
+                      <del class="text-secondary">$ <%= prod.price %>.00</del>
+                    </p>
+                  <% } else { %>
+                    <p class="price">
+                      $ <%= prod.price %>.00
+                    </p>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+        
+        
+
+
+        <div class="row mt-5">
+          <div class="col text-center">
+            <div class="block-27">
+              <ul>
+                <li><a href="#">&lt;</a></li>
+                <li class="active"><span>1</span></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li><a href="#">&gt;</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+
+<!-- jQuery -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> <!-- for filtering -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/js/bootstrap-select.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.5.0/js/bootstrap.bundle.min.js"></script>
+<!-- FILTERING -->
+<script>
+
+  $(document).ready(function () {
+    $('#apply-filters-btn').click(function () {
+      console.log("apply apply")
+      applyFilters();
+    });
+
+function getSelectedRadio(name) {
+  const radios = document.getElementsByName(name);
+  const selectedRadio = Array.from(radios).find(radio => radio.checked);
+  return selectedRadio ? selectedRadio.dataset.sort : '';
+}
+
+    function applyFilters() {
+      var selectedCategories = getSelectedCheckboxes('.category-checkbox');
+      console.log(selectedCategories,"category")
+      var selectedSubcategories = getSelectedCheckboxes('.subcategory-checkbox');
+      console.log(selectedSubcategories,"subcategory");
+      var selectedFlavors = getSelectedCheckboxes('.flavor-checkbox');
+      console.log(selectedFlavors,"flavor");
+      var selectedSizes = getSelectedCheckboxes('.size-checkbox');
+      console.log(selectedSizes,"size")
+      var selectedPriceRange = getSelectedRange();
+      console.log(selectedPriceRange,"price");
+      var selectedSort = getSelectedRadio('sort-option');
+      console.log(selectedSort,"sort");
+      // Make an AJAX request to fetch the products matching the selected filters
+      $.get('/filter', {
+        category: selectedCategories,
+        subcategory: selectedSubcategories,
+        flavor: selectedFlavors,
+        size: selectedSizes,
+        price: selectedPriceRange,
+        sort:  selectedSort
+
+      }, function (response) {
+        console.log(response)
+        console.log(response.products)
+        console.log(typeof response.success)
+        if (response.success) {
+          console.log( "Response is success");
+          var products = response.products;
+          console.log(products,"😂😂😂😂😂😂");
+          updateProductList(products);
+        } else {
+          // Handle the error case
+          console.log('Error fetching products:', response.error);
+        }
+      });
+      function getSelectedRange() {
+  var selectedRange = [];
+
+  $('.range-checkbox:checked').each(function() {
+    var minPrice = $(this).data('min');
+    console.log(minPrice,"min");
+    var maxPrice = $(this).data('max');
+    console.log(maxPrice,"max");
+    if (minPrice !== undefined && maxPrice !== undefined) {
+      selectedRange.push([minPrice, maxPrice]);
+      console.log(selectedRange,"range output");
+    } else if (minPrice !== undefined) {
+      selectedRange.push([minPrice]);
+    }
+  });
+
+  return selectedRange;
+}
+    }
+
+  
+    function updateProductList(products) {
+  var productList = $('#product-list');
+  productList.empty();
+
+  if (products.length === 0) {
+    var noProductHtml = `
+      <div class="col-md-12 text-center">
+        <img src="/image/NO.png" alt="No products" class="no-products-image">
+      </div>
+    `;
+    productList.append(noProductHtml);
+  } else {
+     const productsWithOffer = products.filter(prod => !prod.isBlocked && prod.offer === true);
+          const productsWithoutOffer = products.filter(prod => !prod.isBlocked && prod.offer === false); 
+          [...productsWithOffer, ...productsWithoutOffer].forEach(function(prod) {
+      var productHtml = `
+        <div class="col-md-4 d-flex">
+          <div class="product">
+            <div class="img d-flex align-items-center justify-content-center"
+              style="background-image: url(/uploads/${prod.image});">
+              <div class="desc">
+                <p class="meta-prod d-flex">
+                  <% if (user) { %>
+                        <a href="#" class="d-flex align-items-center justify-content-center" onclick="addToCart('${prod._id}', event)">
+                             <span class="flaticon-shopping-bag"></span>
+                         </a>
+                      <% } else { %>
+                      <a href="#" class="d-flex align-items-center justify-content-center" class="flaticon-shopping-bag" onclick="notToCart()" ><span></span></a>
+                        <% } %>
+                  <a href="#" class="d-flex align-items-center justify-content-center"><span
+                      class="flaticon-heart"></span></a>
+                  <a href="#" class="d-flex align-items-center justify-content-center"><span
+                      class="flaticon-visibility"></span></a>
+                </p>
+              </div>
+            </div>
+            <div class="text text-center">
+              <a href="/product-details?productId=${prod._id}"  ><span class="category">
+                ${prod.category.category}
+              </span></a>
+              <a  href="/product-details?productId=${prod._id}" ><h2>
+                ${prod.productName}
+              </h2></a>
+              <span class="size">
+                    ${prod.size} ml
+                  </span><br>
+              <span class="price">
+                $ ${prod.price}
+              </span>
+            </div>
+          </div>
+        </div>
+      `;
+      productList.append(productHtml);
+    });
+  }
+}
+
+    function getSelectedCheckboxes(checkboxClass) {
+      var selectedCheckboxes = [];
+      $(checkboxClass + ':checked').each(function () {
+        selectedCheckboxes.push($(this).data('value'));
+      });
+      return selectedCheckboxes;
+    }
+
+    $('#sort-select').change(function () {
+      var sortOption = $(this).val();
+      sortProducts(sortOption);
+    });
+
+    function sortProducts(sortOption) {
+      // Implement the sorting logic here based on the selected option
+      // ...
+    }
+
+    $('.selectpicker').selectpicker();
+
+  });
+</script>
+<!-- PAGINATION -->
+<script>
+  $(document).ready(function () {
+    var productsPerPage = 6; // Number of products to display per page
+    var currentPage = 1; // Current page number
+
+    function displayProducts(page) {
+      var startIndex = (page - 1) * productsPerPage;
+      var endIndex = startIndex + productsPerPage;
+      var products = $('.product');
+
+      products.hide(); // Hide all products
+
+      products.slice(startIndex, endIndex).show(); // Show products for the current page
+    }
+
+    function sortProducts() {
+      // Sorting logic goes here
+      // ...
+
+      // After sorting, display products for the current page
+      displayProducts(currentPage);
+      updatePagination();
+    }
+
+    function updatePagination() {
+      var totalProducts = $('.product').length;
+      var totalPages = Math.ceil(totalProducts / productsPerPage);
+
+      var paginationHtml = '';
+
+      // Generate pagination links
+      if (currentPage > 1) {
+        paginationHtml += '<li><a href="#" data-page="' + (currentPage - 1) + '">&lt;</a></li>';
+      } else {
+        paginationHtml += '<li class="disabled"><span>&lt;</span></li>';
+      }
+
+      for (var i = 1; i <= totalPages; i++) {
+        if (i === currentPage) {
+          paginationHtml += '<li class="active"><span>' + i + '</span></li>';
+        } else {
+          paginationHtml += '<li><a href="#" data-page="' + i + '">' + i + '</a></li>';
+        }
+      }
+
+      if (currentPage < totalPages) {
+        paginationHtml += '<li><a href="#" data-page="' + (currentPage + 1) + '">&gt;</a></li>';
+      } else {
+        paginationHtml += '<li class="disabled"><span>&gt;</span></li>';
+      }
+
+      $('.block-27 ul').html(paginationHtml);
+    }
+
+    $(document).on('click', '.block-27 ul li a', function (e) {
+      e.preventDefault();
+
+      var page = parseInt($(this).data('page'));
+
+      if (!isNaN(page)) {
+        currentPage = page;
+        displayProducts(currentPage);
+        updatePagination();
+      }
+    });
+
+    $('#apply-filters-btn').on('click', function () {
+      sortProducts();
+    });
+
+    // Display products for the initial page
+    displayProducts(currentPage);
+    updatePagination();
+  });
+
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const sizeToggle = document.querySelector('.size-toggle');
+    const sizeOptions = document.querySelector('.size-options');
+
+    sizeToggle.addEventListener('click', function () {
+      sizeOptions.classList.toggle('show');
+    });
+  });
+</script>
+
+
+
+<script>
+  // JavaScript code to handle filter selection and display filter options
+
+  // Add event listeners to checkboxes
+  const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+  const subcategoryCheckboxes = document.querySelectorAll('.subcategory-checkbox');
+  const flavorCheckboxes = document.querySelectorAll('.flavor-checkbox');
+  const sizeCheckboxes = document.querySelectorAll('.size-checkbox');
+
+  categoryCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', handleFilterChange);
+  });
+
+  subcategoryCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', handleFilterChange);
+  });
+
+  flavorCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', handleFilterChange);
+  });
+
+  sizeCheckboxes.forEach(function (checkbox) {
+    checkbox.addEventListener('change', handleFilterChange);
+  });
+
+  // Function to handle filter change
+  function handleFilterChange() {
+    // Clear existing filter options
+    const filterOptions = document.getElementById('filter-options');
+    filterOptions.innerHTML = '';
+
+    // Get selected filters
+    const selectedFilters = [];
+    categoryCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    subcategoryCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    flavorCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    sizeCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    // Display selected filters horizontally
+    selectedFilters.forEach(function (filter) {
+      const filterOption = document.createElement('span');
+      filterOption.className = 'filter-option';
+      filterOption.textContent = filter;
+      filterOptions.appendChild(filterOption);
+    });
+  }
+
+  // Function to apply filters
+  const applyFiltersBtn = document.getElementById('apply-filters-btn');
+  applyFiltersBtn.addEventListener('click', applyFilters);
+
+  function applyFilters() {
+    // Perform actions with selected filters
+    const selectedFilters = [];
+    categoryCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    subcategoryCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    flavorCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.flavor);
+      }
+    });
+
+    sizeCheckboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        selectedFilters.push(checkbox.dataset.value);
+      }
+    });
+
+    console.log('Selected Filters:', selectedFilters);
+  }
+
+  // Function to toggle the size options
+  const sizeToggleBtn = document.getElementById('size-toggle-button');
+  const sizeOptions = document.querySelector('.size-options');
+  sizeToggleBtn.addEventListener('click', toggleSizeOptions);
+
+  function toggleSizeOptions() {
+    sizeOptions.classList.toggle('hide');
+  }
+</script>
+
+<script>
+ $(document).ready(function () {
+  // When the category checkbox is clicked
+  $('#category-checkbox').on('click', function () {
+    // Check if the category checkbox is checked
+    if ($(this).is(':checked')) {
+      var selectedCategory = $(this).val();
+      console.log(selectedCategory,"hi")
+      // Hide all subcategory options
+      $('#brand-options li').hide();
+      // Show only the subcategories that belong to the selected category
+      $('#brand-options li[data-category="' + selectedCategory + '"]').show();
+      console.log(selectedCategory);
+    } else {
+      // If the category checkbox is unchecked, show all subcategory options
+      $('#brand-options li').show();
+    }
+  });
+});
+</script>
+
+<script>
+  // Get the category and subcategory elements
+  var categoryheckboxes = document.querySelectorAll('.category-checkbox');
+  var subcategoryOptions = document.querySelectorAll('#brand-options li');
+
+  // Add event listeners to the category checkboxes
+  categoryheckboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      // Get the selected category values
+      var selectedCategories = Array.from(document.querySelectorAll('.category-checkbox:checked')).map(function(checkbox) {
+        console.log(checkbox.getAttribute('data-valueId'));
+        return checkbox.getAttribute('data-valueId'); 
+      });
+      console.log(selectedCategories,"c");
+      // Show/hide subcategory options based on the selected categories
+      subcategoryOptions.forEach(function(option) {
+        var category = option.getAttribute('data-category');
+        console.log(category,"cid");
+        console.log(selectedCategories.includes(category));
+        console.log(selectedCategories.length,"len");
+        if (category && (selectedCategories.length === 0 || selectedCategories.includes(category))) {
+          option.style.display = 'block';
+          console.log("blk");
+        } else {
+          console.log("none");
+          option.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function addToCart(productId,event) {
+  // Make an AJAX request to add the product to the cart
+  event.preventDefault(); 
+  $.ajax({
+    url: '/cartload',
+    type: 'GET',
+    data: {
+      productId: productId,
+      quantity: 1
+    },
+    success: function (response) {
+        console.log("success")
+      Swal.fire({
+        title: 'Added to Cart',
+        text: 'The item has been added to your cart.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function () {
+        // window.location.reload(); // Reload the page to update the cart
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log('Error adding product to cart:', error);
+      // You can display an error message here or handle the error in a different way
+    }
+  });
+}
+  </script>
+<script>
+  function notToCart(){
+        Swal.fire({
+  icon: 'error',
+  title: 'You need to login first',
+  text: 'Cant add item to cart!',
+  footer: '<a href="/userlogin">login here</a>'
+})
+    }
+  </script>
+  <script>
+    function notStock(){
+          Swal.fire({
+    icon: 'error',
+    title: 'Out of stock',
+    text: 'Cant add item to cart!',
+  })
+      }
+    </script>
+
+<script>
+  function addToWishlist(productId,event) {
+  // Make an AJAX request to add the product to the cart
+  event.preventDefault(); 
+  $.ajax({
+    url: '/wishload',
+    type: 'GET',
+    data: {
+      productId: productId
+    },
+    success: function (response) {
+        console.log("success")
+      Swal.fire({
+        title: 'Added to your wishlist',
+        text: 'The item has been added to your Wishlist.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function () {
+        // window.location.reload(); // Reload the page to update the cart
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log('Error adding product to Wishlist:', error);
+      // You can display an error message here or handle the error in a different way
+    }
+  });
+}
+  </script>
+<script>
+  function notToWishlist(){
+        Swal.fire({
+  icon: 'error',
+  title: 'You need to login first',
+  text: 'Cant add item to Wishlist!',
+  footer: '<a href="/userlogin">login here</a>'
+})
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

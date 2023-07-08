@@ -1,0 +1,121 @@
+<section class="vh-100 bg-secondary">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5 align-items-center ">
+        <img src="image/pngegg (2).png" class="img-fluid" alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+        <p><%= error %></p>
+        <form id="loginForm" action="userlogin" method="POST" onsubmit="handleLoginForm(event)">
+          <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
+            <p class="lead fw-normal mb-0 me-3">Sign in with</p>
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-twitter"></i>
+            </button>
+
+            <button type="button" class="btn btn-primary btn-floating mx-1">
+              <i class="fab fa-linkedin-in"></i>
+            </button>
+          </div>
+
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0">Or</p>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="email" class="form-control form-control-lg" placeholder="Enter a valid email address" name="email" required />
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password" name="password" required />
+          </div>
+
+          <!-- Error box -->
+          <div id="errorBox" class="alert alert-danger" style="display: none;"></div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="rememberCheckbox" />
+              <label class="form-check-label" for="rememberCheckbox">
+                Remember me
+              </label>
+            </div>
+            <a href="/emailId" class="text-body">Forgot password?</a>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
+            <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/usersignup" class="link-danger">Register</a></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function handleLoginForm(event) {
+    // Prevent form submission
+    event.preventDefault();
+
+    // Reset error messages
+    resetErrorMessages();
+
+    // Validate form fields
+    var emailInput = document.getElementById("email");
+    var passwordInput = document.getElementById("password");
+
+    // Check if email is empty
+    if (emailInput.value.trim() === "") {
+      displayErrorMessage("emailError", "Please enter your email");
+      return;
+    }
+
+    // Check if email is valid
+    var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailRegex.test(emailInput.value)) {
+      displayErrorMessage("emailError", "Please enter a valid email address");
+      return;
+    }
+
+    // Check if password is empty
+    if (passwordInput.value === "") {
+      displayErrorMessage("passwordError", "Please enter a password");
+      return;
+    }
+
+    // Submit the form if all validations pass
+    event.target.submit();
+  }
+
+  function displayErrorMessage(elementId, errorMessage) {
+    var errorElement = document.getElementById(elementId);
+    errorElement.innerText = errorMessage;
+    errorElement.style.display = "block";
+
+    // Display error box
+    var errorBox = document.getElementById("errorBox");
+    errorBox.innerText = errorMessage;
+    errorBox.style.display = "block";
+  }
+
+  function resetErrorMessages() {
+    var errorElements = document.getElementsByClassName("error-text");
+    for (var i = 0; i < errorElements.length; i++) {
+      errorElements[i].innerText = "";
+      errorElements[i].style.display = "none";
+    }
+
+    // Reset error box
+    var errorBox = document.getElementById("errorBox");
+    errorBox.innerText = "";
+    errorBox.style.display = "none";
+  }
+</script>

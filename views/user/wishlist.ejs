@@ -1,0 +1,238 @@
+<link rel="stylesheet" href="/css/toggle.css">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/uploads/bg_2.jpg');"
+	data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center">
+			<div class="col-md-9 ftco-animate mb-5 text-center">
+				<p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i
+								class="fa fa-chevron-right"></i></a></span> <span>wishlist <i
+							class="fa fa-chevron-right"></i></span></p>
+				<h2 class="mb-0 bread">My wishlist</h2>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+
+<section class="ftco-section bg-light">
+	<div class="container py-5">
+	  <div class="row">
+		<% if (wishlistItems.length === 0 || !user) { %>
+		<div class="no-products-container align-items-center">
+		  <img src="/image/wish.webp" alt="No products">
+		</div>
+		<div class="text-center">
+		  <% if(!user) { %>
+		  <h3>Login to Add/View Wishlist</h3>
+		  <div class="button-container">
+			<a href="/userlogin"><button class="btn btn-primary btn-lg center-button">Login here</button></a>
+		  </div>
+		  <% }%>
+		</div>
+		<% } else { %>
+		<div class="table-wrap col-md-12">
+		  <div class="table-responsive">
+			<table class="table d-none d-md-table">
+			  <thead class="thead-primary">
+				<tr>
+				  <th style="padding-right:90px;">Image</th>
+				  <th style="padding-right:200px;">Product</th>
+				  <th style="padding-right:60px;">Status</th>
+				  <th style="padding-right:50px;">Price($)</th>
+				  <th style="padding-right:100px;">Action</th>
+				  <th class="col">Remove</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<% wishlistItems.forEach(function(wishlistItem) { %>
+				<% wishlistItem.products.forEach(function(product, index) { %>
+				<tr>
+				  <td class="image">
+					<div class="img-container" style="max-width: 150px;">
+					  <a href="/product-details?productId=<%= product.prodId %>">
+						<div class="img" style="background-image: url(/uploads/<%=product.image%>);"></div>
+					  </a>
+					</div>
+				  </td>
+				  <td>
+					<div class="product-info">
+					  <span class="product-name"><%= product.productName %></span>
+					  <span class="product-category"><%= product.subcategory %></span>
+					</div>
+				  </td>
+				  <td>
+					<div class="product-info">
+					  <span class="product-name" style="color: <%= product.stock > 0 ? 'green' : 'red' %>">
+						<%= product.stock > 0 ? 'In Stock' : 'Not in Stock' %>
+					  </span>
+					</div>
+				  </td>
+				  <td class="price">
+					$ <%= product.price %>
+				  </td>
+				  <td class="addToCart">
+					<% if (product.stock!==0) { %>
+					<button class="btn btn-primary" onclick="addToCart('<%= product.prodId %>', event , '<%= product._id %>')"> Add to cart </button>
+					<% } else { %>
+					<button class="btn btn-primary" onclick="notStock()"> Add to cart </button>
+					<% } %>
+				  </td>
+				  <td class="remove">
+					<a href="/removeWishlist?productId=<%= product._id %>&index=<%= index %>" class="btn btn-primary">Remove</a>
+				  </td>
+				</tr>
+				<% }) %>
+				<% }) %>
+			  </tbody>
+			</table>
+			<!-- Card View for Small Screens -->
+			<div class="card-deck d-table d-md-none">
+			  <% wishlistItems.forEach(function(wishlistItem) { %>
+			  <% wishlistItem.products.forEach(function(product, index) { %>
+			  <div class="card">
+				<a href="/product-details?productId=<%= product.prodId %>">
+				  <img class="card-img-top" src="/uploads/<%=product.image%>" alt="<%= product.productName %>">
+				</a>
+				<div class="card-body">
+				  <h5 class="card-title"><%= product.productName %></h5>
+				  <p class="card-text"><%= product.subcategory %></p>
+				  <p class="card-text" style="color: <%= product.stock > 0 ? 'green' : 'red' %>">
+					<%= product.stock > 0 ? 'In Stock' : 'Not in Stock' %>
+				  </p>
+				  <p class="card-text">$ <%= product.price %></p>
+				  <% if (product.stock!==0) { %>
+				  <button class="btn btn-primary" onclick="addToCart('<%= product.prodId %>', event , '<%= product._id %>')"> Add to cart </button>
+				  <% } else { %>
+				  <button class="btn btn-primary" onclick="notStock()"> Add to cart </button>
+				  <% } %>
+				  <a href="/removeWishlist?productId=<%= product._id %>&index=<%= index %>" class="btn btn-primary">Remove</a>
+				</div>
+			  </div>
+			  <% }) %>
+			  <% }) %>
+			</div>
+		  </div>
+		</div>
+		<% }%>
+	  </div>
+	</div>
+  </section>
+  
+  <div class="row justify-content-center bg-light mb-4 mr-1">
+	<div class="col-md-4 text-center">
+	  <div class="d-inline-block">
+		<a href="/allproducts" class="btn btn-primary mr-1">Shop more <span class="fa fa-long-arrow-right"></span></a>
+		<a href="/cart" class="btn btn-primary">Go to cart <span class="fa fa-long-arrow-right"></span></a>
+	  </div>
+	</div>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- <script>
+	function addToCart(productId,event) {
+	// Make an AJAX request to add the product to the cart
+	event.preventDefault(); 
+	$.ajax({
+	  url: '/cartload',
+	  type: 'GET',
+	  data: {
+		productId: productId,
+		quantity: 1
+	  },
+	  success: function (response) {
+		  console.log("success")
+		Swal.fire({
+		  title: 'Added to Cart',
+		  text: 'The item has been added to your cart.',
+		  icon: 'success',
+		  showConfirmButton: false,
+		  timer: 1500
+		}).then(function () {
+		  // window.location.reload(); // Reload the page to update the cart
+		});
+	  },
+	  error: function (xhr, status, error) {
+		// Handle the error
+		console.log('Error adding product to cart:', error);
+		// You can display an error message here or handle the error in a different way
+	  }
+	});
+  }
+	</script> -->
+  <!-- <script>
+	function notToCart(){
+		  Swal.fire({
+	icon: 'error',
+	title: 'You need to login first',
+	text: 'Cant add item to cart!',
+	footer: '<a href="/userlogin">login here</a>'
+  })
+	  }
+	</script> -->
+	<script>
+		function addToCart(productId, event, wishId) {
+  event.preventDefault();
+  
+  // AJAX request to add the product to the cart
+  $.ajax({
+    url: '/cartload',
+    type: 'GET',
+    data: {
+      productId: productId,
+      quantity: 1
+    },
+    success: function(response) {
+      console.log("success");
+      Swal.fire({
+        title: 'Added to Cart',
+        text: 'The item has been added to your cart.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function() {
+        
+         window.location.reload();
+      });
+      
+   
+      $.ajax({
+        url: '/removeWishlist',
+        type: 'GET',
+        data: {
+          productId: wishId
+        },
+        success: function(response) {
+          console.log('Product deleted from wishlist');
+         
+        },
+        error: function(xhr, status, error) {
+          console.log('Error deleting product from wishlist:', error);
+         
+        }
+      });
+    },
+    error: function(xhr, status, error) {
+      console.log('Error adding product to cart:', error);
+      // Display an error message to the user
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to add the item to your cart. Please try again later.',
+      });
+    }
+  });
+}
+
+function notStock(){
+          Swal.fire({
+    icon: 'error',
+    title: 'Out of stock',
+    text: 'Cant add item to cart!',
+  })
+      }
+	</script>
+  
+  

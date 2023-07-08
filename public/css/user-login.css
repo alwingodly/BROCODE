@@ -1,0 +1,60 @@
+/* Common styles for all screen sizes */
+.divider:after,
+.divider:before {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #eee;
+}
+
+.h-custom {
+  height: 100%;
+}
+
+/* Styles for devices with max width 576px (e.g., mobile phones) */
+@media (max-width: 576px) {
+  .h-custom {
+    height: 100%;
+  }
+  
+  .bg-image-vertical {
+    position: relative;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: auto 100%;
+  }
+  
+  /* Additional styles specific to Surface Duo */
+  @media screen and (max-width: 540px) {
+    .container-fluid {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    
+    .col-md-9,
+    .col-lg-6,
+    .col-xl-5 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    
+    .col-md-8,
+    .col-lg-6,
+    .col-xl-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+    
+    .offset-xl-1 {
+      margin-left: 0;
+    }
+  }
+}
+
+/* Styles for devices with min width 992px (e.g., tablets and desktops) */
+@media (min-width: 992px) {
+  .h-custom-2 {
+    height: 100%;
+  }
+}

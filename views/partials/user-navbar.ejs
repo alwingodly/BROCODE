@@ -1,0 +1,298 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:weight@100;200;300;400;500;600;700;800&display=swap");
+
+  body {
+    background-color: #eee;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+  }
+/* Default styles */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+}
+
+.nav-link.dropdown-toggle::after {
+  display: none;
+}
+
+/* Media query for medium screens */
+@media screen and (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .nav-link.dropdown-toggle::after {
+    display: inline-block;
+  }
+
+  .dropdown-menu {
+    position: static;
+  }
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 768px) {
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    text-align: center;
+    width: 100%;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 15px;
+  }
+}
+
+  .height {
+    height: 100vh;
+  }
+
+  .search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+  }
+
+  .search input {
+    height: 50px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4;
+  }
+
+  .search input:focus {
+    box-shadow: none;
+    border: 2px solid rgb(95, 95, 95);
+  }
+
+  .search .fa-search {
+    position: absolute;
+    top: 25px;
+    left: 13px;
+    font-size: 21px;
+    color: #595757;
+  }
+
+  .search button {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    height: 50px;
+    width: 110px;
+  }
+
+  .login-button {
+    padding: 5px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 1024px) {
+    .search input {
+      height: 40px;
+      font-size: 14px;
+    }
+
+    .search .fa-search {
+      top: 20px;
+      left: 10px;
+      font-size: 18px;
+    }
+
+    .search button {
+      height: 40px;
+    }
+
+    .navbar-brand {
+      font-size: 22px;
+    }
+
+    .login-button {
+      padding: 3px 15px;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+  }
+
+  @media (max-width: 1280px) {
+  .col-md-6 {
+    display: block; /* Allow the column to occupy the full width */
+  }
+
+  .search {
+    text-align: center; /* Center the search form */
+  }
+
+  .search input {
+    height: 35px;
+    font-size: 16px;
+    width: 100%; /* Adjust the width as per your preference */
+    margin-bottom: 10px; /* Add some space below the input field */
+    float: left; /* Float the input field to the left */
+  }
+
+  .search .fa-search {
+    position: relative; /* Set the position relative for proper icon placement */
+    top: 0;
+    left: 0;
+    margin-right: 5px; /* Add some space between the icon and the input field */
+    font-size: 20px;
+  }
+
+  .search button {
+    height: 50px;
+    width: 35%; /* Adjust the width as per your preference */
+    float: right; /* Float the button to the right */
+  }
+}
+
+    .navbar-brand {
+      font-size: 24px;
+    }
+
+    .login-button {
+      padding: 4px 18px;
+      font-size: 15px;
+      margin-top: 17px;
+    }
+  
+  .dropdown-menu {
+min-width: 200px;
+}
+
+.dropdown-item {
+display: flex;
+align-items: center;
+padding: 8px 16px;
+}
+
+.dropdown-item i {
+margin-right: 8px;
+}
+
+.dropdown-item:hover {
+background-color: #f8f9fa;
+color: #212529;
+}
+
+.dropdown-toggle::after {
+display: none;
+}
+
+.nav-link {
+color: #212529;
+font-weight: bold;
+}
+
+.nav-link:hover {
+text-decoration: none;
+color: #212529;
+}
+.dropdown-menu {
+min-width: 200px;
+}
+
+.dropdown-item {
+display: flex;
+align-items: center;
+padding: 8px 16px;
+}
+
+.dropdown-item i {
+margin-right: 8px;
+}
+
+.dropdown-item:hover {
+background-color: #f8f9fa;
+color: #212529;
+}
+
+.nav-link {
+color: #212529;
+font-weight:lighter;
+}
+
+.nav-link:hover {
+text-decoration: none;
+color: #212529;
+}
+
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" style="position: initial;" id="ftco-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">BRO<span>CODE</span></a>
+    
+    <div class="col-xl-6 col-sm-4">
+       <div class="search">
+      <form id="product-search-form" class="search-form" action="/search" method="GET">
+        <!-- <i class="fa fa-search"></i> -->
+        <input class="form-control" id="search-input" type="text" name="searchTerm" placeholder="Search products..." aria-label="Search" aria-describedby="search-addon">
+        <button type="submit" class="btn btn-primary" id="search-addon">
+          search
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  
+    
+
+
+    <div class="order-lg-last btn-group">
+      <a href="/cart" class="btn text-secondary">
+        <span><i class="fas fa-shopping-cart"></i></span>
+      </a>
+     
+    </div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav ml-auto">
+        <div class="reg">
+          <% if (user && user.username) { %>
+           
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle mt-3" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ACCOUNT</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown04">
+                  <a class="dropdown-item" href="/account"><i style="color: #b7472a;" class="fas fa-user-circle"></i> User Profile</a>
+                  <a class="dropdown-item" href="/accountOrders"><i style="color: #b7472a;" class="fas fa-file-alt"></i> Orders</a>
+                  <a class="dropdown-item" href="/accountAddress"><i style="color: #b7472a;" class="fas fa-map-marker-alt"></i> Address</a>
+                  <a class="dropdown-item" href="/rewards"><i style="color: #b7472a;" class="fas fa-gift"></i> Rewards</a>
+                  <a href="/logout" class="dropdown-item"><i style="color: #b7472a;" class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+          
+          <% } else { %>
+            <a class=" btn btn-primary login-button  "href="/userlogin" id="loginLink">LogIn</a>
+          <% } %>
+        </div></li>
+        <li class="nav-item"><a href="/wishlist" class="nav-link">Wishlist</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown04">
+            <a class="dropdown-item" href="/allproducts"><i style="color: #b7472a;" class="fas fa-box"></i> Products</a>
+            <a class="dropdown-item" href="/wishlist"><i style="color: #b7472a;" class="fas fa-heart"></i> Wishlist</a>
+            <a class="dropdown-item" href="/cart"><i style="color: #b7472a;" class="fas fa-shopping-cart"></i> Cart</a>
+          </div>
+          
+        </li>
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<script>
+  document.getElementById("product-search-form").addEventListener("submit", function (e) {
+    var searchTerm = document.getElementById("search-input").value.trim(); // Get the search term
+
+    // Redirect to the search results page with the search term as a query parameter
+    if (!searchTerm) {
+      e.preventDefault(); // Prevent form submission if search term is empty
+    }
+  });
+</script>

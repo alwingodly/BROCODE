@@ -1,0 +1,147 @@
+<style>
+    label {
+        display: block;
+    }
+
+    .address-box {
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 20px;
+        position: relative;
+    }
+
+    .form-box {
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .name {
+        font-weight: bold;
+    }
+
+    .edit-button {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    @media (max-width: 576px) {
+        .address-box {
+            text-align: center;
+        }
+
+        .edit-button {
+            display: block;
+            margin: 10px auto;
+            position: static;
+        }
+    }
+    .address-list {
+  margin-top: 20px;
+}
+
+/* .address-item {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 4px;
+} */
+
+.address-box {
+  margin-bottom: 10px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.address-line {
+  margin-bottom: 5px;
+}
+
+.edit-button {
+  margin-top: 10px;
+}
+</style>
+
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10 ftco-animate">
+        
+        <div class="text-center">
+          <h2 style="color: rgb(86, 86, 86);">ADDRESS DETAILS</h2>
+        </div>
+        <a href="addressPage?account=1" class="btn btn-primary">Add Address</a>
+
+        <div class="address-list">
+          <% if (addresses.length > 0) { %>
+            <% addresses.forEach(function(add) { %>
+              <% add.addresses.forEach(function(address) { %>
+                <% if (address.default) { %>
+                  <div class="address-item shadow" style="border: 2px dashed #bd4343; background-color: #f2f2f2;">
+                    <label>
+                      <input type="radio" class="ml-1" name="addressId" value="<%= address._id %>" required>
+                      <div class="address-box py-2 "style="border: none; background-color: #f2f2f2;">
+                        <p class="name"><%= address.userName %></p>
+                        <p class="address-line"><%= address.house %>, <%= address.street %></p>
+                        <p class="address-line"><%= address.city %>, <%= address.zip %></p>
+                        <a href="/addressEditPage?addressId=<%= address._id %>&account=1" class="btn btn-primary edit-button" type="button">Edit</a>
+                      </div>
+                    </label>
+                  </div>
+                <% } %>
+              <% }); %>
+            <% }); %>
+            <% addresses.forEach(function(add) { %>
+              <% add.addresses.forEach(function(address) { %>
+                <% if (!address.default) { %>
+                  <div class="address-item shadow mt-4" style="border: 2px dashed #a8a8a8;">
+                    <label>
+                      <input type="radio" class="ml-1" name="addressId" value="<%= address._id %>" required>
+                      <div class="address-box bg-light py-2" style="border: none;">
+                        <p class="name"><%= address.userName %></p>
+                        <p class="address-line"><%= address.house %>, <%= address.street %></p>
+                        <p class="address-line"><%= address.city %>, <%= address.zip %></p>
+                        <a href="/addressEditPage?addressId=<%= address._id %>" class="btn btn-primary edit-button" type="button">Edit</a>
+                      </div>
+                    </label>
+                  </div>
+                <% } %>
+              <% }); %>
+            <% }); %>
+            <div class="text-center">
+              <a href="#" id="selectAddressBtn" class="btn btn-primary m-3">Select Address</a>
+            </div>
+            
+          <% } else { %>
+            <p>No addresses available. Please add an address.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+</section>
+
+  
+  <script>
+    const productId = '<%= typeof productId !== "undefined" ? productId : "" %>';
+    document.getElementById('selectAddressBtn').addEventListener('click', function() {
+      const selectedAddress = document.querySelector('input[name="addressId"]:checked');
+      if (selectedAddress) {
+        const selectedAddressId = selectedAddress.value;
+        let url = '/order?addressId=' + selectedAddressId;
+        if (productId) {
+          url += '&productId=' + productId;
+        }
+        window.location.href = url;
+      } else {
+        alert('Please select an address.');
+      }
+    });
+  </script>
+  
+  

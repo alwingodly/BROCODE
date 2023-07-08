@@ -1,0 +1,391 @@
+<div class="hero-wrap" style="background-image: url('/uploads/bg_2.jpg');" data-stellar-background-ratio="0.5">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-center justify-content-center">
+      <div class="col-md-8 ftco-animate d-flex align-items-end">
+        <div class="text w-100 text-center">
+          <h1 class="mb-4">Good <span>Drink</span> for Good <span>Moments</span>.</h1>
+          <p><a href="/allproducts" class="btn btn-primary py-2 px-4">Shop Now</a> <a href="#" class="btn btn-white btn-outline-white py-2 px-4">Read more</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="ftco-intro">
+  <div class="container">
+    <div class="row no-gutters">
+      <div class="col-md-4 d-flex">
+        <div class="intro d-lg-flex w-100 ftco-animate">
+          <div class="icon">
+            <span class="flaticon-support"></span>
+          </div>
+          <div class="text">
+            <h2>Online Support 24/7</h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="intro color-1 d-lg-flex w-100 ftco-animate">
+          <div class="icon">
+            <span class="flaticon-cashback"></span>
+          </div>
+          <div class="text">
+            <h2>Money Back Guarantee</h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex">
+        <div class="intro color-2 d-lg-flex w-100 ftco-animate">
+          <div class="icon">
+            <span class="flaticon-free-delivery"></span>
+          </div>
+          <div class="text">
+            <h2>Free Shipping &amp; Return</h2>
+            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section style="background-color: rgb(255, 255, 255);"  class="ftco-section ftco-no-pb">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 img img-3 d-flex justify-content-center align-items-center" style="background-image: url(/image/about.jpg);">
+      </div>
+      <div class="col-md-6 wrap-about pl-md-5 ftco-animate py-5">
+        <div class="heading-section">
+          <span class="subheading">Since 1905</span>
+          <h2 class="mb-4">Desire Meets A New Taste</h2>
+
+          <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+          <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
+          <p class="year">
+            <strong class="number" data-number="115">0</strong>
+            <span>Years of Experience In Business</span>
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background-color: rgb(255, 255, 255);" class="ftco-section ftco-no-pb">
+  <div class="container">
+    <div class="row justify-content-center pb-5">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading">Our Delightful offerings</span>
+        <h2>Category</h2>
+      </div>
+    </div>
+    <div class="row">
+      <% categories.forEach(function(category) { %>
+        <div class="col-lg-2 col-md-4">
+          <div class="sort w-100 text-center ftco-animate">
+            <div class="img" style="background-image: url(/uploads/<%=category.categoryImage%>);"></div>
+            <h3><%= category.category %></h3>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+
+<section  style="background-color: rgb(255, 255, 255);"  class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center pb-5">
+      <div class="col-md-7 heading-section text-center ftco-animate">
+        <span class="subheading">Our Delightful offerings</span>
+        <h2>Tastefully Yours</h2>
+      </div>
+    </div>
+    <div class="row" id="product-list">
+          
+      <% const productsWithOffer = products.filter(prod => !prod.isBlocked && (prod.offer === true|| prod.catoffer === true)); %>
+      <% const productsWithoutOffer = products.filter(prod => !prod.isBlocked && prod.offer === false && prod.catoffer === false); %>
+      
+      <% [...productsWithOffer, ...productsWithoutOffer].slice(0, 4).forEach(function(prod) { %>
+      
+        <div class="col-md-3 d-flex">
+          <div class="product ftco-animate shadow">
+            <div class="img d-flex align-items-center justify-content-center" style="background-image: url(/uploads/<%=prod.image%>);">
+              <div class="desc">
+                <p class="meta-prod d-flex">
+                  <% if (user && prod.stock !== 0) { %>
+                    <a href="#" class="d-flex align-items-center justify-content-center" onclick="addToCart('<%= prod._id %>', event)">
+                      <span class="flaticon-shopping-bag"></span>
+                    </a>
+                  <% } else if(prod.stock === 0) { %>
+                    <a href="#" class="d-flex align-items-center justify-content-center" onclick="notStock()">
+                      <span class="flaticon-shopping-bag"></span>
+                    </a>
+                  <% } else { %>
+                    <a href="#" class="d-flex align-items-center justify-content-center" onclick="notToCart()">
+                      <span class="flaticon-shopping-bag"></span>
+                    </a>
+                  <% } %>
+                  <% if (user) { %>
+                    <a href="#" class="d-flex align-items-center justify-content-center" onclick="addToWishlist('<%= prod._id %>', event)">
+                      <span class="flaticon-heart"></span>
+                    </a>
+                  <% } else { %>
+                    <a href="#" class="d-flex align-items-center justify-content-center" onclick="notToWishlist()">
+                      <span class="flaticon-heart"></span>
+                    </a>
+                  <% } %>
+                  <a style="text-decoration: none;" href="/product-details?productId=<%= prod._id %>" class="d-flex align-items-center justify-content-center">
+                    <span class="flaticon-visibility"></span>
+                  </a>
+                </p>
+              </div>
+            </div>
+            <div class="text text-center">
+              <% if(prod.offer=== true || prod.catoffer === true) {%>
+              <span class="sale">
+                <% if(prod.offerPercentage > prod.catofferPercentage) {%>
+                  <%= prod.offerPercentage%> % off
+                  <%} else {%>
+                    <%= prod.catofferPercentage%> % off
+                    <% } %>
+              </span>
+              <% } %>
+              <a style="text-decoration: none;" href="/product-details?productId=<%= prod._id %>">
+                <span class="category">
+                  <%= prod.category.category %>
+                </span>
+              </a>
+              <a style="text-decoration: none;" href="/product-details?productId=<%= prod._id %>">
+                <h2>
+                  <%= prod.productName %>
+                </h2>
+              </a>
+              <span class="size">
+                <%= prod.size %> ml
+              </span>
+              <% if (prod.stock === 0) { %>
+                <p class="text-danger">
+                  Out of stock
+                </p>
+              <% } else if (prod.stock === 1) { %>
+                <p class="text-success">
+                  Only 1 item left
+                </p>
+              <% } else if (prod.stock === 2) { %>
+                <p class="text-success">
+                  Only 2 items left
+                </p>
+              <% } %>
+              <% if (prod.offer === true || prod.catoffer === true) { %>
+                <p class="price">
+                  <% if(prod.offerPercentage > prod.catofferPercentage) {%>
+                    <span class="offer-price">$ <%= prod.offerPrice %></span>
+                    <%} else {%>
+                      <span class="offer-price">$ <%= prod.catofferPrice %></span>
+                      <% } %>
+                  <br>
+                  <del class="text-secondary">$ <%= prod.price %>.00</del>
+                </p>
+              <% } else { %>
+                <p class="price">
+                  $ <%= prod.price %>.00
+                </p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+        
+      <% }); %>
+    </div>
+    
+    
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <a href="/allproducts" class="btn btn-primary d-block">View All Products <span class="fa fa-long-arrow-right"></span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ftco-section testimony-section img" style="background-image: url(images/bg_4.jpg);">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row justify-content-center mb-5">
+      <div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
+        <span class="subheading">Testimonial</span>
+        <h2 class="mb-3">Happy Clients</h2>
+      </div>
+    </div>
+    <div class="row ftco-animate">
+      <div class="col-md-12">
+        <div class="carousel-testimony owl-carousel ftco-owl">
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></div>
+              <div class="text">
+                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <div class="d-flex align-items-center">
+                  <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                  <div class="pl-3">
+                    <p class="name">Roger Scott</p>
+                    <span class="position">Marketing Manager</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></div>
+              <div class="text">
+                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <div class="d-flex align-items-center">
+                  <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+                  <div class="pl-3">
+                    <p class="name">Roger Scott</p>
+                    <span class="position">Marketing Manager</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></div>
+              <div class="text">
+                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <div class="d-flex align-items-center">
+                  <div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
+                  <div class="pl-3">
+                    <p class="name">Roger Scott</p>
+                    <span class="position">Marketing Manager</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></div>
+              <div class="text">
+                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <div class="d-flex align-items-center">
+                  <div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
+                  <div class="pl-3">
+                    <p class="name">Roger Scott</p>
+                    <span class="position">Marketing Manager</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="testimony-wrap py-4">
+              <div class="icon d-flex align-items-center justify-content-center"><span class="fa fa-quote-left"></div>
+              <div class="text">
+                <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                <div class="d-flex align-items-center">
+                  <div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
+                  <div class="pl-3">
+                    <p class="name">Roger Scott</p>
+                    <span class="position">Marketing Manager</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+	
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function addToCart(productId,event) {
+  // Make an AJAX request to add the product to the cart
+  event.preventDefault(); 
+  $.ajax({
+    url: '/cartload',
+    type: 'GET',
+    data: {
+      productId: productId,
+      quantity: 1
+    },
+    success: function (response) {
+        console.log("success")
+      Swal.fire({
+        title: 'Added to Cart',
+        text: 'The item has been added to your cart.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function () {
+        // window.location.reload(); // Reload the page to update the cart
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log('Error adding product to cart:', error);
+      // You can display an error message here or handle the error in a different way
+    }
+  });
+}
+  </script>
+<script>
+  function notToCart(){
+        Swal.fire({
+  icon: 'error',
+  title: 'You need to login first',
+  text: 'Cant add item to cart!',
+  footer: '<a href="/userlogin">login here</a>'
+})
+    }
+  </script>
+
+
+  <script>
+  function addToWishlist(productId,event) {
+  // Make an AJAX request to add the product to the cart
+  event.preventDefault(); 
+  $.ajax({
+    url: '/wishload',
+    type: 'GET',
+    data: {
+      productId: productId
+    },
+    success: function (response) {
+        console.log("success")
+      Swal.fire({
+        title: 'Added to your wishlist',
+        text: 'The item has been added to your Wishlist.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function () {
+        // window.location.reload(); // Reload the page to update the cart
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log('Error adding product to Wishlist:', error);
+      // You can display an error message here or handle the error in a different way
+    }
+  });
+}
+  </script>
+<script>
+  function notToWishlist(){
+        Swal.fire({
+  icon: 'error',
+  title: 'You need to login first',
+  text: 'Cant add item to Wishlist!',
+  footer: '<a href="/userlogin">login here</a>'
+})
+    }
+  </script>

@@ -1,0 +1,83 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Add distance between the two parts */
+  }
+  
+  .card {
+    padding: 20px;
+    background-color: #191c24;
+    border-radius: 10px; /* Add border radius for curved corners */
+    height: fit-content; /* Reduce the height to fit the content */
+    width: calc(50% - 20px); /* Calculate the width to take up 50% of the screen minus the padding */
+    margin-top: 50px;
+  }
+  
+  .user-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .user-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .tm-block-col {
+   
+   margin-top: 50px; 
+   width: calc(50% - 20px); /* Calculate the width to take up 50% of the screen minus the padding */
+  }
+  
+  .tm-bg-primary-dark {
+    background-color: #ffffff;
+    border-radius: 10px; /* Add border radius for curved corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+    padding: 20px;
+  }
+  
+  .tm-block-title {
+    margin-top: 0;
+    font-size: 20px;
+    color: #333333;
+  }
+  
+  .tm-product-table-container {
+    overflow-x: auto;
+  }
+  
+  .tm-product-table {
+    width: 100%;
+  }
+  
+  .table {
+    display: table;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+  }
+  
+  .tm-product-name {
+    color: #333333;
+  }
+  
+  .tm-product-delete-link {
+    color: #999999;
+  }
+  
+  .tm-product-delete-icon {
+    font-size: 18px;
+  }
+  
+  .btn {
+    border-radius: 5px;
+  }
+  

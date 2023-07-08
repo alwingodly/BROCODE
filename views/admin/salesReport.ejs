@@ -1,0 +1,461 @@
+<link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+<style>
+  #myTable_wrapper{
+    color: #fff9f9 !important;
+  }
+  #myTable_length{
+   display: none;
+  }
+</style>
+<div class="container-scroller">
+    <!-- partial:partials/_sidebar.html -->
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item profile">
+                <div class="profile-desc">
+                    <div class="profile-pic">
+                        <div class="count-indicator">
+                            <img class="img-xs rounded-circle " src="/uploads/1686162065347-ADMIN.jpg" alt="">
+                            <span class="count bg-success"></span>
+                        </div>
+                        <div class="profile-name">
+                            <h5 class="mb-0 font-weight-normal">Admin</h5>
+                        </div>
+                    </div>
+                    <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+                        aria-labelledby="profile-dropdown">
+                        <div class="dropdown-divider"></div>
+                        <i style="font-size: 25px;" class="mdi mdi-logout text-danger ml-5"></i>
+                        <a href="/admin/logout" class="preview-subject mb-1 btn">Log out</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item nav-category">
+                <span class="nav-link">Navigation</span>
+            </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" href="/admin/admin-panel">
+                <span class="menu-icon">
+                  <i class="mdi mdi-speedometer"></i>
+                </span>
+                <span class="menu-title">Dashboard</span>
+              </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/product">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-speedometer"></i>
+                    </span>
+                    <span class="menu-title">products</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coustomer">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-laptop"></i>
+                    </span>
+                    <span class="menu-title">Coustomer</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/order">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-playlist-play"></i>
+                    </span>
+                    <span class="menu-title">Order</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/sales-report">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-chart-gantt"></i>
+                    </span>
+                    <span class="menu-title">Sales Report</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coupon">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-table-large"></i>
+                    </span>
+                    <span class="menu-title">Coupon</span>
+                </a>
+            </li>
+            <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="offer">
+          <span class="menu-icon">
+            <i class="mdi mdi-paper-cut-vertical"></i>
+          </span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+        </ul>
+    </nav>
+    <style>
+        form {
+            height: 260px;
+            width: 100%;
+            padding: 20px;
+            color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="date"] {
+            display: block;
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            display: f;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="hello1 col-md-6 m-0">
+              <h4 class="card-title">Sales</h4>
+              <div class="form-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date" class="form-control">
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <button id="search-btn" class="btn-rounded btn-primary btn-sm">Search</button>
+                
+              </div>
+            </div>
+            <div class="hello2 col-md-3 mt-5">
+              <div class="form-group">
+                <label for="category-select">Categories:</label>
+                <select id="category-select" class="form-control">
+                  <option value="" selected>All categories</option>
+                  <% categories.forEach(category=> { %>
+                    <option value="<%= category.category%>">
+                      <%= category.category %>
+                    </option>
+                  <% }); %>
+                </select>
+              </div>
+              <div>
+                <button id="category-filter-btn" class="btn-rounded btn-primary">Filter</button>
+              </div>
+            </div>
+            <div class="hello2 col-md-3 mt-5">
+              <div class="form-group">
+                <label for="payment-select">Payment Method:</label>
+                <select id="payment-select" class="form-control">
+                  <option value="" selected>All payment methods</option>
+                  <option value="COD">COD</option>
+                  <option value="Razorpay">Razorpay</option>
+                  <option value="Wallet">Wallet</option>
+                </select>
+              </div>
+              <div>
+                <button id="payment-filter-btn" class="btn-rounded btn-primary">Filter</button>
+              </div>
+              
+            </div>
+            <div class="col-md-12 m-0 text-right">
+              <div id="download-buttons" class="m-2">
+                <button id="download-pdf-btn" class="btn-rounded btn-danger btn-sm">PDF</button>
+                <button id="download-excel-btn" class="btn-rounded btn-success btn-sm">Excel</button>
+              </div>
+            </div>
+            
+          </div>
+          <div class="table-responsive">
+            <table class="table" id="myTable">
+              <thead>
+                <h3 class="text-light m-3 text-center">Sales Report</h3>
+                <tr>
+                  <th class="text-light">Delivery Date</th>
+                  <th class="text-light">Order ID</th>
+                  <th class="text-light">Customer</th>
+                  <th class="text-light">Category</th>
+                  <th class="text-light">Quantity</th>
+                  <th class="text-light">Amount</th>
+                  <th class="text-light">discount</th>
+                  <th class="text-light">Total Amount</th>
+                  <th class="text-light text-center">Payment Method</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% orders.reverse().forEach(function(order) { %>
+                  <tr class="sales-row" data-category="<%= order.products.category %>" data-payment="<%= order.paymentMethod %>">
+                    <td><%= order.products.DeliveredAt ? order.products.DeliveredAt.toLocaleString('en-US', { dateStyle: 'short', timeStyle: 'short', hour12: true }) : '' %></td>
+                    <td><%= order._id %></td>
+                    <td><%= order.deliveryDetails.userName %></td>
+                    <td><%= order.products.category %></td>
+                    <td><%= order.products.quantity %></td>
+                    <td>$ <%= order.products.quantity * order.products.price%></td>
+                    <td>$ <%= order.discount %></td>
+                    <td>$ <%= order.totalAmount %></td>
+                    <td class="text-center"><%= order.paymentMethod %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script>
+    $(document).ready(function() {
+  var startDateInput = document.getElementById('start-date');
+  var endDateInput = document.getElementById('end-date');
+  var searchBtn = document.getElementById('search-btn');
+  searchBtn.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      var startDate = new Date(startDateInput.value);
+      var endDate = new Date(endDateInput.value);
+
+      if (startDate > endDate) {
+          alert('Start date cannot be greater than the end date.');
+          return;
+      }
+
+      performSearch();
+  });
+  function performSearch() {
+    $('#search-btn').click(function() {
+        var startDate = $('#start-date').val();
+        var endDate = $('#end-date').val();
+        console.log(startDate + " Start Date & " + endDate + " End Date");
+  
+        $.get('/admin/sales-report/search', { startDate, endDate }, function(response) {
+          console.log(response);
+          updateSalesTable(response);
+  
+        });
+      });
+  }
+  
+      $('#download-pdf-btn').click(function () {
+  var table = $('#myTable')[0];
+
+  // Define table headers
+  var headers = [];
+  $(table)
+    .find('thead th')
+    .each(function () {
+      headers.push($(this).text());
+    });
+
+  // Define table rows
+  var data = [];
+  $(table)
+    .find('tbody tr:visible') // Consider only visible (filtered) rows
+    .each(function () {
+      var rowData = [];
+      $(this)
+        .find('td')
+        .each(function () {
+          rowData.push($(this).text());
+        });
+      data.push(rowData);
+    });
+
+  // Create PDF document definition
+  var docDefinition = {
+    content: [
+      { text: 'Sales Report', style: 'header' },
+      { text: 'Generated on: ' + new Date().toLocaleString(), style: 'subheader' },
+      { text: '\n' }, // Add some space
+      {
+        table: {
+          headerRows: 1,
+          widths: ['auto', 'auto', 'auto', 'auto', 15, 'auto', 'auto','auto'],
+          body: [headers, ...data], // Table headers and filtered data rows
+        },
+      },
+    ],
+    styles: {
+      header: {
+        fontSize: 18,
+        bold: true,
+        margin: [0, 0, 0, 5],
+      },
+      subheader: {
+        fontSize: 14,
+        bold: true,
+        margin: [0, 0, 0, 5],
+      },
+    },
+  };
+
+  // Generate PDF using pdfmake library
+  pdfMake.createPdf(docDefinition).download('sales_report.pdf');
+});
+
+
+  
+      $('#download-excel-btn').click(function() {
+        var wb = XLSX.utils.table_to_book(document.getElementById('myTable'), { sheet: "Sales Report" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+        saveAs(new Blob([wbout], { type: 'application/octet-stream' }), 'sales_report.xlsx');
+      });
+  
+      function formatDate(date) {
+        const options = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric'
+        };
+  
+        return new Date(date).toLocaleDateString('en-US', options);
+      }
+  
+      function updateSalesTable(orders) {
+        var table = $('#myTable');
+        var tableBody = table.find('tbody');
+        var tableHead = table.find('thead');
+  
+        tableBody.empty();
+  
+        tableHead.empty();
+        var headerRow = `<tr>
+          <th class="text-light">Delivery Date</th>
+          <th class="text-light">Order ID</th>
+          <th class="text-light">Customer</th>
+          <th class="text-light">Category</th>
+          <th class="text-light">Quantity</th>
+          <th class="text-light">Amount</th>
+          <th class="text-light">discount</th>
+          <th class="text-light">Total Amount</th>
+          <th class="text-light text-center">Payment Method</th>
+        </tr>`;
+        tableHead.append(headerRow);
+  
+   orders.reverse().forEach(function(order) {
+  var formattedDate = formatDate(order.products.DeliveredAt);
+  var row = `<tr class="sales-row" data-category="${order.products.category}" data-payment="${order.paymentMethod}">
+    <td>${formattedDate}</td>
+    <td>${order._id}</td>
+    <td>${order.deliveryDetails.userName}</td>
+    <td>${order.products.category}</td>
+    <td>${order.products.quantity}</td>
+    <td>$ ${order.products.quantity * order.products.price}</td>
+    <td>$ ${order.discount}</td>
+    <td>$ ${order.totalAmount}</td>
+    <td class="text-center">${order.paymentMethod}</td>
+  </tr>`;
+  tableBody.append(row);
+});
+
+      }
+    });
+    let table = new DataTable('#myTable')
+    
+
+  </script>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Filter by category
+      document.getElementById('category-filter-btn').addEventListener('click', function() {
+        var categorySelect = document.getElementById('category-select');
+        var selectedCategory = categorySelect.value;
+        console.log(selectedCategory,"😜");
+        filterSalesByCategory(selectedCategory);
+      });
+  
+      // Filter by payment method
+      document.getElementById('payment-filter-btn').addEventListener('click', function() {
+        var paymentSelect = document.getElementById('payment-select');
+        var selectedPayment = paymentSelect.value;
+        console.log(selectedPayment,"🎂");
+        filterSalesByPayment(selectedPayment);
+      });
+    });
+  
+    function filterSalesByCategory(category) {
+      var salesRows = document.getElementsByClassName('sales-row');
+      console.log(salesRows,"😜😜");
+      for (var i = 0; i < salesRows.length; i++) {
+        var row = salesRows[i];
+        var rowCategory = row.getAttribute('data-category');
+        console.log(rowCategory,"😜😜😜");
+        if (category === '' || category === rowCategory) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      }
+    }
+  
+    function filterSalesByPayment(payment) {
+      var salesRows = document.getElementsByClassName('sales-row');
+      for (var i = 0; i < salesRows.length; i++) {
+        var row = salesRows[i];
+        var rowPayment = row.getAttribute('data-payment');
+        console.log(rowPayment,"🎂🎂🎂");
+        
+        if (payment === '' || payment === rowPayment) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      }
+    }
+  </script>
+ 
+
+<script>
+
+  
+</script>

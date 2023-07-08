@@ -1,0 +1,131 @@
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-md-9 col-lg-6 col-xl-5 align-items-center">
+        <img src="image/pngegg (2).png" class="img-fluid" alt="Sample image" />
+      </div>
+      
+      <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1" id="accountCreationForm">
+        <h2 class="mb-4 text-dark">Create an Account</h2>
+        <% if (typeof error !== 'undefined') { %>
+          <p class="text-danger"><%= error %></p>
+        <% } %>
+        <form id="signupForm" action="usersignup" method="POST" onsubmit="handleSignupForm(event)">
+          <!-- Username input -->
+          <div class="form-outline mb-4">
+            <input type="text" id="username" class="form-control form-control-lg" placeholder="Enter your full name"
+              name="username" required />
+            <div id="usernameError" class="error-text"></div>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="email" class="form-control form-control-lg"
+              placeholder="Enter a valid email address" name="email" required />
+            <div id="emailError" class="error-text"></div>
+          </div>
+
+          <!-- Phone number input -->
+          <div class="form-outline mb-4">
+            <input type="tel" id="number" class="form-control form-control-lg" placeholder="Enter your mobile number"
+              name="number" required />
+            <div id="numberError" class="error-text"></div>
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="password" class="form-control form-control-lg" placeholder="Enter password"
+              name="password" required />
+            <div id="passwordError" class="error-text"></div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="agreeCheckbox" required />
+              <label class="form-check-label" for="agreeCheckbox">
+                I agree to the terms and conditions
+              </label>
+            </div>
+          </div>
+
+          <div class="text-center text-lg-start mt-4 pt-2">
+       <a><button type="submit" class="btn btn-primary btn-lg"
+              style="padding-left: 2.5rem; padding-right: 2.5rem;">Continue</button></a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function handleSignupForm(event) {
+    // Prevent form submission
+    event.preventDefault();
+
+    // Reset error messages
+    resetErrorMessages();
+
+    // Validate form fields
+    var usernameInput = document.getElementById("username");
+    var emailInput = document.getElementById("email");
+    var numberInput = document.getElementById("number");
+    var passwordInput = document.getElementById("password");
+
+    // Check if username is empty
+    if (usernameInput.value.trim() === "") {
+      displayErrorMessage("usernameError", "Please enter your username");
+      return;
+    }
+
+    // Check if email is empty
+    if (emailInput.value.trim() === "") {
+      displayErrorMessage("emailError", "Please enter your email");
+      return;
+    }
+
+    // Check if email is valid
+    var emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailRegex.test(emailInput.value)) {
+      displayErrorMessage("emailError", "Please enter a valid email address");
+      return;
+    }
+
+    // Check if number is empty
+    if (numberInput.value.trim() === "") {
+      displayErrorMessage("numberError", "Please enter your mobile number");
+      return;
+    }
+
+    // Check if number contains exactly 10 digits
+    var numberRegex = /^\d{10}$/;
+    if (!numberRegex.test(numberInput.value)) {
+      displayErrorMessage("numberError", "Please enter a 10-digit mobile number");
+      return;
+    }
+
+    // Check if password is empty
+    if (passwordInput.value === "") {
+      displayErrorMessage("passwordError", "Please enter a password");
+      return;
+    }
+
+    // Submit the form if all validations pass
+    event.target.submit();
+  }
+
+  function displayErrorMessage(elementId, errorMessage) {
+    var errorElement = document.getElementById(elementId);
+    errorElement.innerText = errorMessage;
+    errorElement.style.display = "block";
+  }
+
+  function resetErrorMessages() {
+    var errorElements = document.getElementsByClassName("error-text");
+    for (var i = 0; i < errorElements.length; i++) {
+      errorElements[i].innerText = "";
+      errorElements[i].style.display = "none";
+    }
+  }
+</script>

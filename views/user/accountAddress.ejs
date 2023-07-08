@@ -1,0 +1,221 @@
+<link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<link rel="stylesheet" href="/css/templatemo-style.css">
+
+<Style>
+    .address-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+}
+/* Custom styles for the navbar */
+#sidebar {
+  padding: 20px;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-name {
+  margin-top: 10px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.menu-icon {
+  margin-right: 10px;
+}
+
+.menu-title {
+  font-weight: bold;
+}
+
+/* Add more custom styles as needed */
+
+</Style>
+<nav class="bg-dark d-md-none py-0" id="sidebar">
+  <ul class="nav justify-content-center">
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/account">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-account"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="accountAddress">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-map-marker"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/accountOrders">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-cart"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/rewards">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-gift"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/logout">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-logout"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+<div class="container-scroller bg-light">
+  <nav class="sidebar sidebar-offcanvas bg-secondary" id="sidebar">
+    <ul class="nav">
+      
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/account">
+          <span class="menu-icon">
+            <i class="mdi mdi-table-large"></i>
+          </span>
+          <span class="menu-title">User Profile</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="accountAddress">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">Address</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/accountOrders">
+          <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+          </span>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+     <li class="nav-item menu-items">
+      <a class="nav-link" href="/rewards">
+        <span class="menu-icon">
+          <i class="mdi mdi-gift"></i>
+        </span>
+        <span class="menu-title">Rewards</span>
+      </a>
+    </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/logout">
+          <span class="menu-icon">
+            <i class="mdi mdi-playlist-play"></i>
+          </span>
+          <span class="menu-title">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container m-md-5 m">
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <h3>User Address Details</h3>
+        <div class="row">
+          <div class="col-md-6 mb-4">
+            <a href="/addressPage?account=0" class="btn btn-secondary btn-block shadow" style="height: 100%; font-size: 2rem;" id="addAddressBtn">
+              <i style="font-size: 9rem; font-weight: 100;" class="fas fa-plus mt-5"></i><br> Add New Address</a>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card shadow" style="background: #cecece;" >
+              <div class="card-body">
+                <% if (addresses.length > 0) { %>
+                    <% addresses.forEach(function(add) { %>
+                        <% add.addresses.forEach(function(address) { %>
+                            <% if (address.default) { %>
+                  <div class="address-box text-dark">
+                    <p><strong><%= address.type %></strong></p>
+                    <p><strong><%= address.userName %></strong></p>
+                    <p><%= address.house %></p>
+                    <span><%= address.city %></span>
+                    <span><strong>-<%= address.zip %></strong></span>
+                    <p>Number:<strong><%= address.number %></strong></p>
+                  </div>
+                  <a  href="/addressEditPage?addressId=<%=address.id %>&account=0" class="btn btn-primary mt-2">Edit</a>
+                 <a href="/deleteaddress?addressId=<%=address.id %>" class="btn btn-primary mt-2">Delete</a>
+                  <% } %>
+                  <% }); %>
+              <% }); %>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="row">
+            <% addresses.forEach(function(add) { %>
+                <% add.addresses.forEach(function(address) { %>
+                    <% if (!address.default) { %>
+              <div class="col-md-6 mb-4">
+                <div class="card bg-secondary shadow">
+                  <div class="card-body">
+                    <div class="address-box text-dark">
+                      <p><strong><%= address.type %></strong></p>
+                      <p><strong><%= address.userName %></strong></p>
+                      <p><%= address.house %></p>
+                      <span><%= address.city %></span>
+                      <span><strong>-<%= address.zip %></strong></span>
+                      <p>Number:<strong><%= address.number %></strong></p>
+                    </div>
+                    <a href="/addressEditPage?addressId=<%=address.id %>" class="btn btn-primary mt-2">Edit</a>
+                    <a href="/deleteaddress?addressId=<%=address.id %>" class="btn btn-primary mt-2">Delete</a>
+                    <a href="/setdefault?addressId=<%=address.id %>" class="btn btn-primary mt-2">Set as Default</a>
+                  </div>
+                  
+                </div>
+             
+              </div>
+              
+              <% } %>
+              <% }); %>
+              <% }); %>
+              <% } else { %>
+                <p>No addresses available. Please add an address.</p>
+            <% } %>
+           
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

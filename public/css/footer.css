@@ -1,0 +1,48 @@
+.ftco-footer .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .ftco-footer .col-md {
+    flex-basis: 20%;
+  }
+  
+  .ftco-footer-widget {
+    margin-bottom: 2rem;
+  }
+  
+  .ftco-footer-widget h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .ftco-footer-widget ul li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .ftco-footer-widget ul li a {
+    color: #fff;
+  }
+  
+  .ftco-footer-widget p,
+  .ftco-footer-widget ul li {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .ftco-footer-social li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+  
+  .ftco-footer .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  
+  .ftco-footer .container-fluid p {
+    margin-bottom: 0;
+  }
+  

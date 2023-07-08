@@ -1,0 +1,98 @@
+<style>
+    .dark-color {
+    color: #333; /* Replace #333 with your desired dark color */
+}
+</style>
+
+<section class="ftco-section bg-light">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-10 ftco-animate">
+                <form action="/editaddress?addressId=<%=address._id%>&account=<%= account %>" class="billing-form" id="billingForm" method="post">
+                    <%= error %>
+                    <h3 class="mb-4 billing-heading">Billing Details</h3>
+                    <div class="row align-items-end">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="userName">Your Name</label>
+                                <input type="text" class="form-control dark-color" placeholder="" name="userName" value="<%= address.userName %>">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="country">State</label>
+                                <input type="text" class="form-control" placeholder="" name="state" value="<%= address.state %>">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="streetaddress">Street Address</label>
+                                <input type="text" class="form-control" placeholder="House number and street name" name="address" value="<%= address.house %>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="streetaddress">Landmark (optional)</label>
+                                <input type="text" class="form-control" placeholder="" name="landmark" value="<%= address.landmark %>">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="towncity">Town / City</label>
+                                <input type="text" class="form-control" placeholder="" name="city" value=" <%= address.city %>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="postcodezip">Postcode / ZIP *</label>
+                                <input type="text" class="form-control" placeholder="" name="zip" value="<%= address.zip %>">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="phone">Phone number</label>
+                                <input type="text" class="form-control" placeholder="" name="number" value="<%= address.number %>">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="emailaddress">Email Address</label>
+                                <input type="text" class="form-control" placeholder="" name="email" value="<%= address.email %>">
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-md-12">
+                            <div class="form-group mt-4">
+                                <div class="radio">
+                                    <label class="mr-3">
+                                        <input type="radio" name="type" value="home" <%= address.type === 'home' ? 'checked' : '' %> required> Home
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="type" value="office" <%= address.type === 'office' ? 'checked' : '' %> required> Office
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4 pt-2">
+                            <label>
+                                <input type="checkbox" name="setDefault" <% if (address.default) { %>checked<% } %>> Set as Default Address
+                            </label>
+                        </div>
+                        
+                        <div class="text-center text-lg-start mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary btn-lg"
+                                style="padding-left: 2.5rem; padding-right: 2.5rem;">Save and Deliver</button>
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+</script>

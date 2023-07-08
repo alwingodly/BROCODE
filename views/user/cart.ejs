@@ -1,0 +1,363 @@
+<link rel="stylesheet" href="/css/toggle.css">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/uploads/bg_2.jpg');"
+	data-stellar-background-ratio="0.5">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center">
+			<div class="col-md-9 ftco-animate mb-5 text-center">
+				<p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i
+								class="fa fa-chevron-right"></i></a></span> <span>Cart <i
+							class="fa fa-chevron-right"></i></span></p>
+				<h2 class="mb-0 bread">My Cart</h2>
+			</div>
+		</div>
+	</div>
+</section>
+<style>
+	/* Default styles */
+.img {
+  text-align: center;
+}
+
+/* Media query for medium screens */
+@media screen and (max-width: 768px) {
+  .img {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	width: 600px;
+	height: auto;
+  }
+}
+
+/* Media query for small screens */
+@media screen and (max-width: 480px) {
+  .img {
+	width: 400px;
+	height: auto;
+  }
+}
+
+</style>
+
+
+
+<section class="ftco-section bg-light col-md-12">
+	<div class="container">
+		<% if (!user) { %>
+			<div class="no-products-container align-items-center">
+				<img class="img" src="/image/0items.webp" alt="No products">
+			  </div>
+			<div class="button-container">
+			  <a href="/userlogin">
+				<button class="btn btn-primary btn-lg center-button">Login here</button>
+			  </a>
+			</div>
+			<% } %>
+	  <div class="row">
+		<% cartItems.forEach(function(cartItem) { %>
+		  <% if (cartItem.products.length === 0 || !user) { %>
+			<div class="no-products-container align-items-center">
+				<img class="img" src="/image/0items.webp" alt="No products">
+			  </div>
+		
+			
+		  <% } else { %>
+			<div class="table-wrap col-md-12">
+			  <div class="table-responsive">
+				<table class="table">
+				  <thead class="thead-primary">
+					<tr>
+					  <th style="padding-right:90px;">Image</th>
+					  <th style="padding-right:200px;">Product</th>
+					  <th style="padding-right:40px;">Price($)</th>
+					  <th style="padding-right:110px;">Quantity</th>
+					  <th style="padding-right:40px;">Total($)</th>
+					  <th class="col">Remove</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					<% cartItem.products.forEach(function(product, index) { %>
+					  <tr>
+						<td class="image">
+						  <div class="img-container" style="max-width: 150px;">
+							<a href="/product-details?productId=<%= product.prodId %>">
+							  <div class="img" style="background-image: url(/uploads/<%=product.image%>);"></div>
+							</a>
+						  </div>
+						</td>
+						<td>
+						  <div class="product-info">
+							<span class="product-name"><%= product.productName %></span>
+							<span class="product-category"><%= product.subcategory %></span>
+						  </div>
+						</td>
+						<% if(product.cartOffer === true){ %>
+							<td class="price">
+								<%=product.offerPrice %>
+							  </td>
+							<% }else{ %>
+							<td class="price">
+								<%=product.price %>
+							  </td>
+							<% } %>
+						
+						<td class="quantity">
+							<% if(product.stock===0) {%>
+								<p class="text-danger">Out of stock</p>
+								<%} else {%>
+						  <div class="input-group col-md-12 mb-3">
+							<span class="input-group-prepend">
+							  <button type="button" class="quantity-left-minus btn" data-product-id="<%= product._id %>" data-prod-id = "<%= product.prodId %>">
+								<i class="fa fa-minus"></i>
+							  </button>
+							</span>
+							<input type="text" id="quantity-<%= product._id %>" name="quantity" class="quantity form-control input-number" value="<%= product.count %>" min="1" max="<%= product.stock %>" onchange="updateQuantity('<%= product._id %>')">
+
+							<span class="input-group-append">
+							  <button type="button" class="quantity-right-plus btn" data-product-id="<%= product._id %>" data-prod-id = "<%= product.prodId %>">
+								<i class="fa fa-plus"></i>
+							  </button>
+							</span>
+						  </div>
+						  <% } %>
+						</td>
+						<% if(product.cartOffer === true){ %>
+						<% let total = product.offerPrice * product.count %>
+						<td class="total">
+							$<%=total %>
+						  </td>
+						<% }else{ %>
+						<% let total = product.price * product.count %>
+						<td class="total">
+							$<%=total %>
+						  </td>
+						<% } %>
+						
+						<td class="remove">
+						  <a href="/removeCart?productId=<%= product._id %>&index=<%= index %>" class="btn btn-primary">Remove</a>
+						</td>
+					  </tr>
+					<% }) %>
+				  </tbody>
+				</table>
+			  </div>
+			</div>
+		  <% } %>
+		<% }) %>
+	  </div>
+	</div>
+  </section>
+  
+  <div class="row justify-content-center bg-light mr-md-1">
+	<div class="col-md-4 mb-5">
+	  <a href="/allproducts" class="btn btn-primary d-block">Shop more <span class="fa fa-long-arrow-right"></span></a>
+	</div>
+  </div>
+  <% cartItems.forEach(function(cartItem) { %>
+  <% if (cartItem.products.length !== 0 && user) { %>
+  <div class="row justify-content-end bg-light mr-md-1 ">
+	<div class="col col-lg-5 col-md-6 mb-md-5 mr-md-5 cart-wrap ftco-animate shadow">
+	  <div class="cart-total mb-3 bg-light" style="border: none;">
+		<h3>Cart Totals</h3>
+		<p class="d-flex">
+		  <span>Subtotal</span>
+		  <span id="total-quantity"></span>
+		</p>
+		<p class="d-flex">
+		  <span>Delivery</span>
+		  <span id="delivery-charge"></span>
+		</p>
+		<p class="d-flex">
+		  <span>Discount</span>
+		  <span></span>
+		</p>
+		<hr>
+		<p class="d-flex total-price">
+		  <span>Total</span>
+		  <span id="total-price"></span>
+		</p>
+	  </div>
+	  <p class="text-center">
+		<a href="/address" class="btn btn-primary py-3 px-4" id="checkout-btn">Proceed to Checkout<span id="amount"></span></a>
+	  </p>
+	</div>
+  </div>
+  <% } %>
+  <% }) %>
+  
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  
+  
+<script>
+	// $(document).ready(function () {
+	// 	$('.quantity-right-plus').click(function (e) {
+	// 		e.preventDefault();
+	// 		var $row = $(this).closest('tr');
+	// 		var quantityInput = $row.find('.quantity input');
+	// 		var quantity = parseInt(quantityInput.val());
+	// 		console.log()
+	// 		var price = parseFloat($row.find('.price').text());
+	// 		var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price) + price;
+	// 		$row.find('.total').text(total.toFixed(2));
+	// 		quantity += 1;
+	// 		quantityInput.val(quantity);
+	// 	});
+
+	// 	$('.quantity-left-minus').click(function (e) {
+	// 		e.preventDefault();
+	// 		var $row = $(this).closest('tr');
+	// 		var quantityInput = $row.find('.quantity input');
+	// 		var quantity = parseInt(quantityInput.val());
+	// 		if (quantity > 1) {
+	// 			var price = parseFloat($row.find('.price').text());
+	// 			var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price) - price;
+	// 			$row.find('.total').text(total.toFixed(2));
+	// 			quantity -= 1;
+	// 			quantityInput.val(quantity);
+	// 		}
+	// 	});
+	// });
+
+	// Get the subtotal value
+</script>
+<script>
+	$(document).ready(function () {
+  $('.quantity-right-plus').click(function (e) {
+    e.preventDefault();
+    var $row = $(this).closest('tr');
+    var quantityInput = $row.find('.quantity input');
+    var quantity = parseInt(quantityInput.val());
+	console.log(quantity,"quantity👀👀👀");
+    var price = parseFloat($row.find('.price').text());
+	console.log(price,"price ✔✔✔");
+	var maxQuantity = parseInt(quantityInput.attr('max'));
+	console.log(maxQuantity,"max quantity🙌");
+    var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price)+price;
+	console.log(total,"total❤❤❤");
+    $row.find('.total').text(total.toFixed(2));
+    if(quantity<maxQuantity){
+		quantity += 1;
+		console.log(quantity,"updated?😊");
+        quantityInput.val(quantity);
+	} else{
+		console.log(quantity,"stop limit reached?😊");
+        quantityInput.val(quantity);
+	}
+	
+    // Update the quantity and price in the database
+    var productId = $(this).data('product-id');
+    updateQuantityInDatabase(productId,quantity);
+    calculateSum();
+  });
+
+  $('.quantity-left-minus').click(function (e) {
+    e.preventDefault();
+    var $row = $(this).closest('tr');
+    var quantityInput = $row.find('.quantity input');
+    var quantity = parseInt(quantityInput.val());
+    if (quantity > 1) {
+      var price = parseFloat($row.find('.price').text());
+      var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price)+price;
+      $row.find('.total').text(total.toFixed(2));
+      quantity -= 1;
+      quantityInput.val(quantity);
+
+      // Update the quantity and price in the database
+      var productId = $(this).data('product-id');
+      updateQuantityInDatabase(productId, quantity);
+    }
+    calculateSum();
+  });
+
+  $('.quantity').on('change', function () {
+    var $row = $(this).closest('tr');
+    var quantity = parseInt($(this).val());
+
+    // Update the total price
+    var price = parseFloat($row.find('.price').text());
+    var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price)+price;
+    $row.find('.total').text(total.toFixed(2));
+
+    // Update the quantity and price in the database
+    var productId = $(this).attr('id').replace('quantity-', '');
+    updateQuantityInDatabase(productId, quantity);
+    calculateSum();
+  });
+
+  function updateQuantityInDatabase(productId, quantity) {
+	console.log(quantity,"🌹🌹");
+    $.ajax({
+      url: '/updateQuantity',
+      type: 'POST',
+      data: { productId: productId, quantity: quantity },
+      success: function (response) {
+        console.log('Quantity and price updated in the database');
+      },
+      error: function (xhr, status, error) {
+        console.error('Error updating quantity and price:', error);
+      }
+    });
+  }
+
+
+});
+
+
+</script>
+
+
+<!-- -----------------------------------------------------USED TO ADD TOTAL OF THE CART----------------------------------------------------------- -->
+
+
+<script>
+	$(document).ready(function () {
+  function calculateSum() {
+    var sum = 0;
+    var totalQuantity = 0; // Initialize total quantity variable
+    $('tbody tr').each(function () {
+      var $row = $(this);
+      var quantity = parseInt($row.find('.quantity input').val());
+      var price = parseFloat($row.find('.price').text());
+      var total = isNaN(quantity) || isNaN(price) ? 0 : quantity * price;
+      $row.find('.total').text(total.toFixed(2));
+      sum += total;
+      totalQuantity += quantity; // Accumulate the quantity for each row
+    });
+    if(totalQuantity === 0){
+		$('.row.justify-content-end.bg-light.mr-1').hide();
+		$('.table-responsive').hide();
+	}
+    // Calculate delivery charge based on the total quantity
+    var deliveryCharge = sum < 100 ? 3 : 0;
+
+    // Calculate the total price by adding the sum and delivery charge
+    var totalPrice = sum + deliveryCharge;
+    console.log(totalPrice,"😜😜😜😜😜");
+	
+    $('.sum').text(sum.toFixed(2));
+    $('#total-quantity').text('$ '+sum); // Update total quantity
+    $('#delivery-charge').text('$ '+deliveryCharge);
+    $('#total-price').text('$ '+totalPrice.toFixed(2));
+	$('#amount').text('  ('+totalQuantity+')' + ' items');
+	var checkoutBtn = $('#checkout-btn');
+    //used to pass total price as query to /address
+    var currentHref = checkoutBtn.attr('href');
+    var updatedHref = currentHref.split('?')[0] + '?totalPrice=' + totalPrice;
+
+    checkoutBtn.attr('href', updatedHref);
+  }
+
+  // Call calculateSum() initially to display the total sum
+  calculateSum();
+
+  $('.quantity-right-plus, .quantity-left-minus, .quantity').on('click change', function () {
+    calculateSum();
+  });
+
+});
+
+</script>

@@ -1,0 +1,232 @@
+<link rel="stylesheet" href="/css/toggle.css">
+<style>
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: #6c757d;
+    }
+    
+    .custom-file-input {
+      cursor: pointer;
+    }
+    
+    .selected-image {
+      display: block;
+      width: 100px;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+  
+<div class="container-scroller">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item profile">
+                <div class="profile-desc">
+                    <div class="profile-pic">
+                        <div class="count-indicator">
+                            <img class="img-xs rounded-circle " src="/assets/images/faces/face15.jpg" alt="">
+                            <span class="count bg-success"></span>
+                        </div>
+                        <div class="profile-name">
+                            <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                        </div>
+                    </div>
+                    <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+                        aria-labelledby="profile-dropdown">
+                        <a href="#" class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-settings text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="preview-item-content">
+                                <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-onepassword  text-info"></i>
+                                </div>
+                            </div>
+                            <div class="preview-item-content">
+                                <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-calendar-today text-success"></i>
+                                </div>
+                            </div>
+                            <div class="preview-item-content">
+                                <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item nav-category">
+                <span class="nav-link">Navigation</span>
+            </li>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/product">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-speedometer"></i>
+                    </span>
+                    <span class="menu-title">products</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coustomer">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-laptop"></i>
+                    </span>
+                    <span class="menu-title">Coustomer</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/order">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-playlist-play"></i>
+                    </span>
+                    <span class="menu-title">Order</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/sales-report">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-chart-gantt"></i>
+                  </span>
+                  <span class="menu-title">Sales Report</span>
+                </a>
+              </li>
+              <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coupon">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-table-large"></i>
+                    </span>
+                    <span class="menu-title">Coupon</span>
+                </a>
+            </li>
+            <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="offer">
+          <span class="menu-icon">
+            <i class="mdi mdi-paper-cut-vertical"></i>
+          </span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+        </ul>
+    </nav>
+    
+    <form id="editForm" action="/admin/admin-panel/product/add-category/edit-category?categoryId=<%= category._id %>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="categoryId" value="<%= category._id %>">
+      
+        <div class="form-group">
+          <label for="edit-category" class="form-label">Category Name:</label>
+          <input type="text" id="edit-category" name="categoryName" class="form-control" value="<%= category.category %>">
+        </div>
+      
+            <div class="mb-3">
+              <label for="image" class="form-label text-light">Category Image:</label>
+              <div class="custom-file">
+                <input type="file" multiple class="custom-file-input" id="image" name="categoryImage" accept="image/*" onchange="displaySelectedImages(event)">
+                <label class="custom-file-label" for="image">Choose file(s)</label>
+              </div>
+            </div>
+            <div id="selected-images">
+       
+                <div class="form-group">
+                  <img style="width: 100px; height: auto;" src="/uploads/<%= category.categoryImage %>" alt="" class="selected-image">
+                </div>
+           
+            </div>
+          
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Update Category</button>
+        </div>
+      </form>
+      
+      
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function displaySelectedImages(event) {
+          const selectedImagesContainer = document.getElementById('selected-images');
+          selectedImagesContainer.innerHTML = '';
+      
+          const files = event.target.files;
+          for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const image = document.createElement('img');
+      
+            
+            image.onload = function() {
+              
+              const maxWidth = 100; 
+              const maxHeight = 100; 
+      
+              const aspectRatio = this.width / this.height;
+      
+             
+              if (aspectRatio >= 1) {
+                this.width = maxWidth;
+                this.height = maxWidth / aspectRatio;
+              } else {
+                this.height = maxHeight;
+                this.width = maxHeight * aspectRatio;
+              }
+      
+             
+              this.classList.add('selected-image');
+            };
+      
+            image.src = URL.createObjectURL(file);
+      
+            selectedImagesContainer.appendChild(image);
+          }
+        }
+      </script>

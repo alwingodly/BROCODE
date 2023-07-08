@@ -1,0 +1,248 @@
+<link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<link rel="stylesheet" href="/css/templatemo-style.css">
+<style>
+ * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'poppins', sans-serif;
+}
+
+.container-coupon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.coupon-card-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.coupon-card {
+  width: 250px;
+  height: auto;
+  background: linear-gradient(135deg, #b84427, #f2775e);
+
+
+  color: #fff;
+  text-align: center;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.15);
+  margin: 10px;
+}
+
+.logo {
+  font-weight: 700;
+}
+
+.coupon-card h3 {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.coupon-card p {
+  font-size: 12px;
+}
+
+.coupon-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px auto;
+  width: fit-content;
+}
+
+#cpnCode {
+  border: 1px dashed #fff;
+  padding: 6px 12px;
+  border-right: 0;
+  font-size: 14px;
+}
+
+#cpnBtn {
+  border: 1px solid #fff;
+  background: #fff;
+  padding: 6px 12px;
+  color: #7158fe;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.circle1,
+.circle2 {
+  background: #f0fff3;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.circle1 {
+  left: -15px;
+}
+
+.circle2 {
+  right: -15px;
+}
+
+.nav-link {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+</style>
+<nav class="bg-dark d-md-none py-0" id="sidebar">
+
+    <ul class="nav justify-content-center">
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/account">
+          <span class="menu-icon">
+            <i style="font-size: 25px;" class="mdi mdi-account"></i>
+          </span>
+          <span class="menu-title"></span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="accountAddress">
+          <span class="menu-icon">
+            <i style="font-size: 25px;" class="mdi mdi-map-marker"></i>
+          </span>
+          <span class="menu-title"></span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/accountOrders">
+          <span class="menu-icon">
+            <i style="font-size: 25px;" class="mdi mdi-cart"></i>
+          </span>
+          <span class="menu-title"></span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/rewards">
+          <span class="menu-icon">
+            <i style="font-size: 25px;" class="mdi mdi-gift"></i>
+          </span>
+          <span class="menu-title"></span>
+        </a>
+      </li>
+      
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/logout">
+          <span class="menu-icon">
+            <i style="font-size: 25px;" class="mdi mdi-logout"></i>
+          </span>
+          <span class="menu-title"></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  
+  
+  
+  <div class="container-scroller bg-light">
+    <nav class="sidebar sidebar-offcanvas bg-secondary" id="sidebar">
+      <ul class="nav">
+        
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/account">
+            <span class="menu-icon">
+              <i class="mdi mdi-table-large"></i>
+            </span>
+            <span class="menu-title">User Profile</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="accountAddress">
+            <span class="menu-icon">
+              <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">Address</span>
+          </a>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/accountOrders">
+            <span class="menu-icon">
+              <i class="mdi mdi-laptop"></i>
+            </span>
+            <span class="menu-title">Orders</span>
+          </a>
+        </li>
+       <li class="nav-item menu-items">
+        <a class="nav-link" href="/rewards">
+          <span class="menu-icon">
+            <i class="mdi mdi-gift"></i>
+          </span>
+          <span class="menu-title">Rewards</span>
+        </a>
+      </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/logout">
+            <span class="menu-icon">
+              <i class="mdi mdi-playlist-play"></i>
+            </span>
+            <span class="menu-title">Log out</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="container-coupon col-md-10">
+        <div class="coupon-card-wrapper">
+          <% for (let i = coupons.length - 1; i >= 0; i--) { %>
+            <div class="coupon-card">
+                <h2 class="logo text-light">BRO<span class="logo" style="color: #ffffff;">CODE</span></h2>
+                <h3 style="color: #d6d6d6;">$ <%= coupons[i].discountAmount %> off for more than $ <%= coupons[i].priceRange %> purchase<br></h3>
+                <% if (coupons[i].active === true) { %>
+                  <% if (usedCouponCodes.includes(coupons[i].couponCode)) { %>
+                    <h4 class="text-light">Used</h4>
+                  <% } else { %>
+                    <div class="coupon-row">
+                      <span id="cpnCode"><%= coupons[i].couponCode %></span>
+                      <span id="cpnBtn">Copy Code</span>
+                    </div>
+                    <p>Valid Till: <%= coupons[i].expirationDate.toLocaleDateString() %></p>
+                  <% } %>
+                <% } else { %>
+                  <br>
+                  <br>
+                  <h4 class="text-light">Coupon Expired</h4>
+                <% } %>
+                
+                <div class="circle1"></div>
+                <div class="circle2"></div>
+            </div>
+        <% } %>
+        
+        </div>
+    </div>
+    
+
+      
+      
+    </div>
+    <script>
+        var cpnBtn = document.getElementById("cpnBtn");
+            var cpnCode = document.getElementById("cpnCode");
+
+            cpnBtn.onclick = function(){
+                navigator.clipboard.writeText(cpnCode.innerHTML);
+                cpnBtn.innerHTML ="COPIED";
+                setTimeout(function(){
+                    cpnBtn.innerHTML="COPY CODE";
+                }, 3000);
+            }
+    </script>

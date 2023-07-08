@@ -1,0 +1,596 @@
+<style>
+  .card-img {
+    width: 100%;
+  }
+  .cart-detail {
+    border-radius: 10px;
+  }
+
+  .btn-primary {
+    background-color: #7158fe;
+    border-color: #7158fe;
+  }
+
+  .btn-primary:hover {
+    background-color: #9d4de6;
+    border-color: #9d4de6;
+  }
+
+  .total-price {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  .address-box {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .total-price {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  .checkbox {
+    margin-top: 15px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+
+  .btn-primary:focus,
+  .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+  }
+
+  .btn-primary.disabled,
+  .btn-primary:disabled {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .bg-light {
+    background-color: #f8f9fa !important;
+  }
+</style>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-body">
+            <h3>Shipping Address</h3>
+            <div class="address-box text-dark">
+              <p style="font-weight: 400">
+                <strong><%= address.type %></strong>
+              </p>
+              <p><strong><%= address.userName %></strong></p>
+              <p><%= address.house %></p>
+              <p><%= address.city %>, <%= address.zip %></p>
+              <p>Number: <strong><%= address.number %></strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <% cartItems.forEach(function(cartItem) { %> <%
+        cartItem.products.forEach(function(product, index) { %>
+        <div class="card float-right m-1 shadow" style="height: auto">
+          <div class="row no-gutters">
+            <div class="col-2">
+              <img
+                style="height: auto"
+                src="/uploads/<%= product.image %>"
+                alt="<%= product.productName %>"
+                class="card-img"
+              />
+            </div>
+            <div class="col-10">
+              <div class="ml-2 mt-2">
+                <h6 class="card-title" style="margin-bottom: 0">
+                  <%= product.productName %>
+                </h6>
+                <p class="card-text" style="margin-bottom: 0">
+                  <%= product.category %>
+                </p>
+                <p class="card-text" style="margin-bottom: 0">
+                  <%= product.subcategory %>
+                </p>
+                <div class="quantity" style="margin-bottom: 0">
+                  Qty: <span><%= product.count %></span>
+                </div>
+                <div class="total" style="margin-bottom: 0">
+                  <% if(product.cartOffer === true) {%>
+                  <strong>$<%= product.offerPrice * product.count %></strong>
+                  <% }else{%>
+                  <strong>$<%= product.price * product.count %></strong>
+                  <% } %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% }) %> <% }) %>
+      </div>
+    </div>
+    <!-- <div class="text-right">
+      <button class="btn btn-primary mb-3">Add Wallet</button>
+    </div> -->
+    <div
+      class="d-flex justify-content-between align-items-center mb-3 col-md-6 mt-5"
+    >
+      <button
+        type="button"
+        class="btn btn-primary col-md-5 m-1"
+        data-toggle="modal"
+        data-target="#addCouponModal"
+      >
+        Add Coupon
+      </button>
+      <div
+        class="modal fade"
+        id="addCouponModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="addCouponModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addCouponModalLabel">Add Coupon</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <% cartItems.forEach(function(cartItem) { %>
+            <div class="modal-body">
+              <form id="couponForm" action="/checkCoupon" method="POST">
+                <div class="form-group">
+                  <label for="couponCode">Coupon Code</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="couponCode"
+                    name="couponCode"
+                    placeholder="Enter coupon code"
+                    required
+                  />
+                  <input
+                    type="hidden"
+                    name="totalPrice"
+                    value="<%= cartItem.totalprice %>"
+                  />
+                  <input
+                    type="hidden"
+                    name="address"
+                    value="<%= address._id %>"
+                  />
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  Apply Coupon
+                </button>
+              </form>
+            </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+      <% if(wallet) {%> 
+        <% cartItems.forEach(function(cartItem) { %> 
+          <%if(cartItem.totalprice > wallet.wallet) {%>
+      <button
+        type="button"
+        class="btn btn-primary col-md-5 m-1"
+        id="useWalletButton"
+      >
+        Use Wallet Amount
+      </button>
+      <% } %> 
+      <% }) %> 
+      <% } %>
+    </div>
+    <form id="checkout-form" action="#" method="POST">
+      <div class="row mt-5 pt-3 d-flex">
+        <div class="col-md-6">
+          <div class="cart-detail cart-total p-3 p-md-4 bg-light shadow">
+            <h3 class="billing-heading mb-4">Cart Total</h3>
+            <% let subtotal = 0; %> 
+            <% let manageTotal = 0; %> 
+            <% cartItems.forEach(function(cartItem) { %>
+            <% cartItem.products.forEach(function(product, index) { %> 
+              <%subtotal = cartItem.totalprice; %> 
+              <%manageTotal = cartItem.manageTotal; %>
+            <% }) %> 
+            <% }) %> 
+            <% let deliveryCharge = (subtotal < 100) ? 3 : 0; %>
+            <p class="d-flex">
+              <span>Subtotal</span>
+              <% if (subtotal < 100) { %>
+              <span id="total-quantity">$<%= subtotal - 3 %></span>
+              <% } else { %>
+              <span id="total-quantity">$<%= subtotal %></span>
+              <% } %>
+            </p>
+            <p class="d-flex">
+              <span>Delivery</span>
+              <span id="delivery-charge">$<%= deliveryCharge %></span>
+            </p>
+            <p class="d-flex">
+              <span>Discount</span>
+              <span>$0</span>
+            </p>
+            <hr />
+
+            <% let totalPrice = subtotal %>
+            <p class="d-flex total-price">
+              <span>Total</span>
+              <span id="total-price">$<%= totalPrice %></span>
+              <input
+                type="hidden"
+                name="totalPrice"
+                value="<%= totalPrice %>"
+              />
+              <input
+                type="hidden"
+                name="manageTotal"
+                value="<%=  manageTotal %>"
+              />
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="cart-detail p-3 p-md-4 bg-light shadow">
+            <h3 class="billing-heading mb-4">Payment Method</h3>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="COD"
+                      class="mr-2"
+                      required
+                    />
+                    COD
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="radio">
+                  <label>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="Razorpay"
+                      class="mr-2"
+                      required
+                    />
+                    Razorpay
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="radio">
+                  <% if(wallet) {%>
+                  <label>
+                    <% if (wallet.wallet === 0 || wallet.wallet < totalPrice) {
+                    %>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="Wallet"
+                      class="mr-2"
+                      disabled
+                      required
+                    />if
+                    Wallet ($ <%= wallet.wallet %>) - Insufficient balance 
+                    <% }else { %>
+                    <input
+                      type="radio"
+                      name="paymentMethod"
+                      value="Wallet"
+                      class="mr-2"
+                      required
+                    />
+                    <% cartItems.forEach(function(cartItem) { %>
+                     <% if(cartItem.walletAmount === true){ %>
+                      <span> ($ 0)- balance </span>
+                      <% }else { %>
+                        Wallet ($ <%= wallet.wallet %>) 
+                        <% } %>
+                     <% }) %>
+                     <% } %>
+                  </label>
+                  <%}else{ %>
+                  <input
+                    type="radio"
+                    name="paymentMethod"
+                    value="Wallet"
+                    class="mr-2"
+                    disabled
+                    required
+                  />
+                  Wallet- Insufficient balance <% } %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-md-12">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" name="termsAndConditions" required />
+                    I agree to the terms and conditions
+                  </label>
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="addressId" value="<%= address._id %>" />
+            <button
+              id="orderButton"
+              type="submit"
+              class="btn btn-primary py-3 px-4"
+            >
+              Place an order
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Payment Success Modal -->
+  <div
+    class="modal fade"
+    id="paymentSuccessModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="paymentSuccessModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentSuccessModalLabel">
+            Payment Successful
+          </h5>
+          
+        </div>
+        <div class="modal-body">
+          <img
+            style="height: 400px; width: 450px"
+            src="/image/3d-illustration-of-payment-success-png.webp"
+            alt="Payment Success Image"
+          />
+          <p>Your payment was successful. Thank you for your purchase!</p>
+        </div>
+        <div class="modal-footer">
+          <a href="/" class="btn btn-primary">Go to Home Page</a>
+          <a href="/accountOrders" class="btn btn-secondary">Go to Order Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Failed Modal -->
+  <div
+    class="modal fade"
+    id="paymentFailedModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="paymentFailedModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="paymentFailedModalLabel">
+            Payment Failed
+          </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img style="height: 400px; width: 400px;" src="/image/fail.png" alt="Payment Failed Image">
+          <p>Your payment was not successful. Please try again.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="/" class="btn btn-primary">Go to Home Page</a>
+          <a href="/accountOrders" class="btn btn-secondary">Go to Order Page</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- <script>
+    function handleRazorpayPayment(event) {
+      event.preventDefault();
+  
+      // Fetch the form and extract relevant information
+      const form = document.getElementById("checkout-form");
+      const totalPrice = form.querySelector('input[name="totalPrice"]').value;
+  
+      // Set the value of the paymentMethod input field to Razorpay
+      form.querySelector('input[name="paymentMethod"]').value = "Razorpay";
+  
+      // Prepare the payment options
+      const options = {
+        key: "rzp_test_REtCvvrJoFU8zA",
+        amount: totalPrice * 100, // Amount in paise or the smallest currency unit
+        currency: "INR",
+        name: "BROCODE",
+        description: "Payment for Order",
+        handler: function (response) {
+          // Handle the payment success response
+          console.log(response);
+          // Submit the form to complete the order
+          form.submit();
+        },
+        prefill: {
+          email: "alwinaswin123@gmail.com",
+          contact: "9746564270",
+        },
+      };
+  
+      // Create the Razorpay payment instance
+      const rzp = new Razorpay(options);
+  
+      // Open the Razorpay payment dialog
+      rzp.open();
+    }
+  
+    const placeOrderButton = document.querySelector('button[type="submit"]');
+    placeOrderButton.addEventListener("click", handleRazorpayPayment);
+  </script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $("#checkout-form").submit((e) => {
+    console.log("alwin🤢");
+    e.preventDefault();
+    $("#orderButton").prop("disabled", true);
+    const formData = $("#checkout-form").serializeArray();
+    $.ajax({
+      url: "/orderprocess",
+      method: "post",
+      data: formData,
+
+      success: (response) => {
+        console.log(response, "response😊😊😊😊");
+        if (response.codSuccess) {
+          console.log("Redirecting to home now");
+          $("#paymentSuccessModal").modal("show");
+        } else {
+          razorpayPayment(response.order, response.newOrder, response.price);
+        }
+      },
+      error: function (xhr, textStatus, errorThrown) {
+        console.log("Error:", errorThrown);
+      },
+    });
+  });
+
+  function razorpayPayment(order, newOrder, price) {
+    var options = {
+      key: "rzp_test_REtCvvrJoFU8zA",
+      amount: order.amount,
+      currency: "INR",
+      name: "BROCODE",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: order.id,
+      handler: function (response) {
+        verifyPayment(response, order, newOrder, price);
+      },
+      prefill: {
+        name: "Gaurav Kumar",
+        email: "gaurav.kumar@example.com",
+        contact: "9000090000",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#243247",
+      },
+    };
+
+    var rzp1 = new Razorpay(options);
+
+    rzp1.on("payment.failed", function (response) {
+      verifyPayment(response, order);
+    });
+
+    rzp1.open();
+  }
+
+  function verifyPayment(payment, order, newOrder, price) {
+    console.log("verifying payment");
+    console.log(newOrder, price);
+    $.ajax({
+      url: "/verify-payment",
+      data: {
+        payment,
+        order,
+        newOrder,
+        price,
+      },
+      method: "post",
+      success: (response) => {
+        if (response.status) {
+          $("#paymentSuccessModal").modal("show");
+        } else {
+          $("#paymentFailedModal").modal("show");
+        }
+      },
+    });
+  }
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#couponForm").submit(function (event) {
+      event.preventDefault();
+      var formData = $(this).serialize();
+      console.log(formData);
+
+      $.ajax({
+        url: "/checkCoupon",
+        type: "POST",
+        data: formData,
+        success: function (response) {
+          console.log(response);
+          location.reload();
+        },
+        error: function (error) {
+          console.error(error);
+        },
+      });
+    });
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+    $("#useWalletButton").click(function () {
+      $.ajax({
+        url: "/useWallet",
+        method: "GET",
+        success: function (response) {
+          console.log(response);
+          location.reload();
+        },
+        error: function (error) {
+          console.error(error);
+        },
+      });
+    });
+  });
+</script>

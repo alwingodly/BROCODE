@@ -1,0 +1,268 @@
+<link rel="stylesheet" href="/css/toggle.css">
+<div class="container-scroller">
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav ">
+      <li class="nav-item profile">
+        <div class="profile-desc">
+          <div class="profile-pic">
+            <div class="count-indicator">
+              <img class="img-xs rounded-circle " src="/assets/images/faces/face15.jpg" alt="">
+              <span class="count bg-success"></span>
+            </div>
+            <div class="profile-name">
+              <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+            </div>
+          </div>
+          <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+          <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+            aria-labelledby="profile-dropdown">
+            <a href="#" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-settings text-primary"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-onepassword  text-info"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+              </div>
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item preview-item">
+              <div class="preview-thumbnail">
+                <div class="preview-icon bg-dark rounded-circle">
+                  <i class="mdi mdi-calendar-today text-success"></i>
+                </div>
+              </div>
+              <div class="preview-item-content">
+                <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item nav-category">
+        <span class="nav-link">Navigation</span>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/admin-panel/product">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">products</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/admin-panel/coustomer">
+          <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+          </span>
+          <span class="menu-title">Coustomer</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/admin-panel/order">
+          <span class="menu-icon">
+            <i class="mdi mdi-playlist-play"></i>
+          </span>
+          <span class="menu-title">Order</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/admin/admin-panel/sales-report">
+          <span class="menu-icon">
+            <i class="mdi mdi-chart-gantt"></i>
+          </span>
+          <span class="menu-title">Sales Report</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="admin/admin-panel/coupon">
+          <span class="menu-icon">
+            <i class="mdi mdi-table-large"></i>
+          </span>
+          <span class="menu-title">Coupon</span>
+        </a>
+      </li>
+      <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="offer">
+          <span class="menu-icon">
+            <i class="mdi mdi-paper-cut-vertical"></i>
+          </span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="tm-block-title d-inline-block">Edit product</h2>
+            </div>
+          </div>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+              <form action="/admin/admin-panel/product/edit-product/" class="tm-edit-product-form" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                <div class="form-group mb-3">
+                  <label for="name">Product Name</label>
+                  <input id="name" name="productName" type="text" class="form-control validate" value="<%= product.productName %>" required />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="description">Description</label>
+                  <textarea name="description" class="form-control validate" rows="3" required><%= product.description %></textarea>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="category">Category</label>
+                  <select class="custom-select text-white" id="category" name="category">
+                    <option value="<%= product.category._id %>"><%= product.category.category %></option>
+                    <% categories.forEach(category => {
+                      if (!category.isBlocked) { %>
+                        <option value="<%= category._id %>" <%= product.category && product.category.toString() === category._id.toString() ? 'selected' : '' %>>
+                          <%= category.category %>
+                        </option>
+                    <% } }); %>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="subcategory">Sub Category</label>
+                  <select class="custom-select tm-select-accounts" id="subcategory" name="subcategory">
+                    <option value="<%= product.subcategory._id %>"><%= product.subcategory.subCategory %></option>
+                    <% subcategories.forEach(subcategory => { %>
+                      <option value="<%= subcategory._id %>" data-category="<%= subcategory.category %>"><%= subcategory.subCategory %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="flavour">Flavor</label>
+                  <input id="flavour" name="flavour" type="text" class="form-control validate" value="<%= product.flavour %>" required />
+                </div>
+                <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-12">
+                    <label for="stock">Units In Stock</label>
+                    <input id="stock" name="stock" type="number" class="form-control validate" value="<%= product.stock %>" required />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="size">Size</label>
+                    <input id="size" name="size" type="number" class="form-control validate" value="<%= product.size %>" required />
+                  </div>
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="price">Price</label>
+                    <input id="price" name="price" type="number" class="form-control validate" value="<%= product.price %>" required />
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+                  <div class="mb-3">
+                    <label for="image" class="form-label text-light">Image:</label>
+                    <div class="custom-file">
+                      <input type="file" multiple class="custom-file-input" id="image" name="image" accept="image/*" onchange="displaySelectedImages(event)">
+                      <label class="custom-file-label" for="image">Choose file(s)</label>
+                    </div>
+                  </div>
+                  <div id="selected-images">
+                    <% for (let i = 0; i < product.image.length; i++) { %>
+                      <div class="form-group">
+                        <img style="width: 100px; height: auto;" src="/uploads/<%= product.image[i] %>" alt="" class="selected-image">
+                      </div>
+                    <% } %>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary btn-block text-uppercase">Update Product</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function displaySelectedImages(event) {
+    const selectedImagesContainer = document.getElementById('selected-images');
+    selectedImagesContainer.innerHTML = '';
+
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const image = document.createElement('img');
+
+      
+      image.onload = function() {
+        
+        const maxWidth = 100; 
+        const maxHeight = 100; 
+
+        const aspectRatio = this.width / this.height;
+
+       
+        if (aspectRatio >= 1) {
+          this.width = maxWidth;
+          this.height = maxWidth / aspectRatio;
+        } else {
+          this.height = maxHeight;
+          this.width = maxHeight * aspectRatio;
+        }
+
+       
+        this.classList.add('selected-image');
+      };
+
+      image.src = URL.createObjectURL(file);
+
+      selectedImagesContainer.appendChild(image);
+    }
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function validateForm() {
+   
+    var stock = document.getElementById("stock").value;
+    var size = document.getElementById("size").value;
+    var price = document.getElementById("price").value;
+
+    
+    if (stock < 0 || size < 0 || price < 0) {
+      Swal.fire({
+        title: "Validation Error",
+        text: "Negative values are not allowed.",
+      });
+      return false; 
+    }
+
+    if (stock.trim() === "" || size.trim() === "" || price.trim() === "") {
+      Swal.fire({
+        title: "Validation Error",
+        text: "Input fields cannot be empty.",
+      });
+      return false; 
+    }
+
+    
+    return true;
+  }
+</script>

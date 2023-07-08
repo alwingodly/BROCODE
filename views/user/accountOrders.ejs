@@ -1,0 +1,875 @@
+<link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<!-- Include the FileSaver.js library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<link rel="stylesheet" href="/css/templatemo-style.css">
+
+<style>
+  .pagination-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination-container ul.pagination {
+  display: inline-flex;
+  border-radius: 0.25rem;
+}
+
+.pagination-container ul.pagination li {
+  display: flex;
+}
+
+.pagination-container ul.pagination li.page-item {
+  margin-right: 5px;
+}
+
+.pagination-container ul.pagination li.page-item a.page-link {
+  padding: 6px 12px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.pagination-container ul.pagination li.page-item.active a.page-link {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination-container ul.pagination li.page-item.disabled a.page-link {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.pagination-container ul.pagination li.page-item.disabled a.page-link:hover {
+  background-color: transparent;
+  color: #333;
+  border-color: #ddd;
+}
+
+.pagination-container ul.pagination li.page-item a.page-link:hover {
+  background-color: #ddd;
+  color: #333;
+  border-color: #ddd;
+}
+
+  .filter-btn {
+    margin-right: 10px;
+  }
+
+  .card-header {
+    background-color: #d3d3d3;
+    color: #000;
+  }
+
+  .card-body {
+    background-color: #f0f0f0;
+  }
+
+  .product-card {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+  }
+
+  .text-danger {
+    color: #dc3545;
+  }
+
+  .text-warning {
+    color: #ffc107;
+  }
+
+  .text-success {
+    color: #28a745;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+  }
+
+  .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+  }
+  .btn-danger {
+    background-color: #ff0707;
+    border-color: #ff0707;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-warning:hover {
+    background-color: #ffca2c;
+    border-color: #ffc720;
+  }
+
+  .btn-sm {
+    font-size: 12px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+
+  .filter-btn {
+    margin-right: 10px;
+  }
+  .card-header-sm {
+    padding-bottom: 0;
+    background: #d3d3d3;
+  }
+
+  .product-card {
+    align-items: center;
+  }
+
+  .product-card img {
+    width: 100%;
+    height: auto;
+  }
+  .address-box {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  .table-sm {
+    font-size: 12px;
+  }
+
+  .table-sm th,
+  .table-sm td {
+    padding: 0.3rem;
+  }
+  .card-header-sm {
+    
+    font-size: 14px;
+  }
+  .card.shadow {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+  }
+</style>
+<Style>
+  .address-box {
+border: 1px solid #ccc;
+padding: 10px;
+background-color: #fff;
+}
+/* Custom styles for the navbar */
+#sidebar {
+padding: 20px;
+}
+
+.profile-pic {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+background-color: #fff;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.profile-name {
+margin-top: 10px;
+}
+
+.nav-link {
+color: #fff;
+text-decoration: none;
+display: flex;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.menu-icon {
+margin-right: 10px;
+}
+
+.menu-title {
+font-weight: bold;
+}
+
+/* Add more custom styles as needed */
+
+</Style>
+<nav class="bg-dark d-md-none py-0" id="sidebar">
+  <ul class="nav justify-content-center">
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/account">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-account"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="accountAddress">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-map-marker"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/accountOrders">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-cart"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/rewards">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-gift"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+    
+    <li class="nav-item menu-items">
+      <a class="nav-link" href="/logout">
+        <span class="menu-icon">
+          <i style="font-size: 25px;" class="mdi mdi-logout"></i>
+        </span>
+        <span class="menu-title"></span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+
+<div class="container-scroller bg-light">
+  <nav class="sidebar sidebar-offcanvas bg-secondary" id="sidebar">
+    <ul class="nav">
+      
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/account">
+          <span class="menu-icon">
+            <i class="mdi mdi-table-large"></i>
+          </span>
+          <span class="menu-title">User Profile</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/accountAddress">
+          <span class="menu-icon">
+            <i class="mdi mdi-speedometer"></i>
+          </span>
+          <span class="menu-title">Address</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="accountOrder">
+          <span class="menu-icon">
+            <i class="mdi mdi-laptop"></i>
+          </span>
+          <span class="menu-title">Orders</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/rewards">
+          <span class="menu-icon">
+            <i class="mdi mdi-gift"></i>
+          </span>
+          <span class="menu-title">Rewards</span>
+        </a>
+      </li>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="/logout">
+          <span class="menu-icon">
+            <i class="mdi mdi-playlist-play"></i>
+          </span>
+          <span class="menu-title">Log out</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  
+  <div class="container col-md-8 col-sm-12  p-3" id="order-list">
+    <a href="/accountOrders" class="btn btn-primary mb-3 filter-btn" id="" data-status="cancelled">All Orders</a>
+    <button class="btn btn-primary mb-3 filter-btn" id="cancelled-products-btn" data-status="cancelled">Cancelled Products</button>
+    <button class="btn btn-primary mb-3 filter-btn" id="delivered-products-btn" data-status="delivered">Delivered Products</button>
+    <button class="btn btn-primary mb-3 filter-btn" id="returned-products-btn" data-status="delivered">Returned Products</button>
+    
+
+    <% order.reverse().forEach(function(order) { %>
+      <div style="border: none;" class="card text-light mb-3 shadow" id="orderlist">
+        <div class="card-header card-header-sm pb-0" style="background: #f1f1f1;">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Order Details</h5>
+            <div>
+              <% let invoiceShown = false; %>
+<% order.products.forEach(function(product) { %>
+  <% if (product.deliverystatus === "delivered" && !invoiceShown) { %>
+    <a href="#" class="btn btn-sm btn-primary" data-toggle="modal"
+      data-target="#invoiceModal<%= order._id %>">Invoice</a>
+    <% invoiceShown = true; %>
+  <% } %>
+<% }) %>
+
+              <button class="btn btn-sm btn-primary" data-toggle="modal"
+                data-target="#productDetailModal<%= order._id %>">Order Details</button>
+            </div>
+          </div>
+          <div class="row mt-3 text-dark">
+            <div class="col-md-3">
+              <p><strong>Amount:</strong> $<%= order.totalAmount %></p>
+            </div>
+            <div class="col-md-3">
+              <p><strong>Payment Status:</strong> <%= order.paymentstatus %></p>
+            </div>
+            <div class="col-md-3">
+              <p><strong>Delivery Status:</strong> <%= order.deliverystatus %></p>
+            </div>
+            <div class="col-md-3">
+              <p><strong>Date:</strong> <%= order.createdAt.toDateString() %></p>
+            </div>
+          </div>
+        </div>
+        <div class="card-body py-2 bg-light">
+          <% order.products.reverse().forEach(function(product) { %>
+          <div style="border: none;" class="row mb-1 product-card" data-order-status="<%= product.orderstatus %>">
+            <div class="col-md-3 col-sm-12">
+              <img style="width: 100%; height: auto;" class="img-fluid rounded" src="/uploads/<%= product.image %>"
+                alt="<%= product.name %>">
+            </div>
+            <div class="col-md-6 col-sm-12 text-dark">
+              <h5><%= product.name %></h5>
+              <p><strong>Quantity:</strong> <%= product.quantity %></p>
+              <p><strong>Size:</strong> <%= product.size %> ml</p>
+              <p><strong>Category:</strong> <%= product.category %></p>
+              <p><strong>Subcategory:</strong> <%= product.subcategory %></p>
+              <% if (product.orderstatus==='cancelled' ) { %>
+              <p><strong>Order Status:</strong> <span class="text-danger"><%= product.orderstatus %></span></p>
+              <% } %>
+              <% if (product.orderstatus==='returned' ) { %>
+              <p><strong>Order Status:</strong> <span class="text-warning"><%= product.orderstatus %></span></p>
+              <% } %>
+              <% if (product.deliverystatus==='outofdelivery' ) { %>
+              <p><strong>Delivery Status:</strong> <span class="text-success"><%= product.deliverystatus %></span></p>
+              <% } %>
+              <% if (product.deliverystatus==='delivered' ) { %>
+              <p>
+                <strong>Delivery Status:</strong> <span class="text-success"><%= product.deliverystatus %></span> At <%= product.DeliveredAt ?
+                product.DeliveredAt.toLocaleString('en-US', { dateStyle: 'short' , timeStyle: 'short', hour12: true }) : '' %>
+              </p>
+              <% } %>
+              <% if (product.deliverystatus==='shipped' ) { %>
+              <p><strong>Delivery Status:</strong> <span class="text-success"><%= product.deliverystatus %></span></p>
+              <% } %>
+              <div>
+                <% if (product.deliverystatus!=='finished') { %>
+                <% if ((product.orderstatus !=='cancelled' ) && ((product.deliverystatus==='outofdelivery' ) || (product.deliverystatus==='shipped' ) || (product.deliverystatus==null))) { %>
+                <a href="/cancelproduct?productId=<%= product.prodId %>&orderId=<%= order._id %>"
+                  class="btn btn-sm btn-danger" onclick="confirmCancellation(event)">Cancel</a>
+                <% } %>
+                <% if (product.deliverystatus==='delivered' ) { %>
+                <a href="/returnproduct?productId=<%= product.prodId %>&orderId=<%= order._id %>&" class="btn btn-sm btn-warning" onclick="confirmReturn(event)">Return</a>
+                <% } %>
+                <% } else { %>
+                  <% if (order.paymentMethod === 'COD' && product.orderstatus === 'cancelled') { %>
+                    <h4 class="text-success"></h4>
+                  <% } else { %>
+                    <h5>Your Wallet is updated to<strong> $ <%= product.amountReturn %></strong></h5>
+                  <% } %>
+                <% } %>
+                
+                <a href="/product-details?productId=<%= product.prodId %>"
+                  class="btn btn-sm btn-primary">View Product</a>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+      
+
+
+
+
+      <div id="downloadInvoice">
+        <% order.products.forEach(function(product, index) { %>
+          <% if (product.deliverystatus==="delivered" && product.orderstatus !=="returned" && product.orderstatus!=="cancelled" ) { %>
+            <div class="modal fade" id="invoiceModal<%= order._id %>" tabindex="-1" role="dialog"
+              aria-labelledby="invoiceModalLabel<%= order._id %>" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content bg-light text-dark">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="invoiceModalLabel<%= order._id %>">Invoice - Order ID: <%= order._id %>
+                    </h5>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                  </div>
+                  <div class="modal-body">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4 class="mb-4">Customer Details:</h4>
+                          <p>To: <span class="fw-bold">
+                              <%= order.deliveryDetails.userName %>
+                            </span></p>
+                          <p>
+                            <%= order.deliveryDetails.house %>
+                          </p>
+                          <p>
+                            <%= order.deliveryDetails.city %>, <%= order.deliveryDetails.state %>
+                          </p>
+                          <p><i class="fas fa-phone"></i>
+                            <%= order.deliveryDetails.number %>
+                          </p>
+                        </div>
+                        <div class="col-md-6">
+                          <h4 class="mb-4">Invoice Details:</h4>
+                          <p><span class="fw-bold">ID:</span>
+                            <%= order._id %>
+                          </p>
+                          <p><span class="fw-bold">Creation Date:</span>
+                            <%= order.createdAt %>
+                          </p>
+                          <p><span class="fw-bold">Status:</span> <span class="badge bg-warning text-black fw-bold">
+                              <%= product.deliverystatus %>
+                            </span></p>
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-md-12">
+                          <h4 class="mb-4">Order Items:</h4>
+
+                          <div>
+                            <table>
+                              <thead >
+                                <tr class="text-dark">
+                                  <th scope="col m-0">No:</th>
+                                  <th scope="col m-0">Description</th>
+                                  <th scope="col m-0">Qty</th>
+                                  <th scope="col m-0">Unit Price</th>
+                                  <th scope="col m-0">Amount</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <% order.products.forEach(function(product, index) { %>
+                                  <tr>
+                                    <th scope="row">
+                                      <%= index + 1 %>
+                                    </th>
+                                    <td>
+                                      <%= product.name %>
+                                    </td>
+                                    <td>
+                                      <%= product.quantity %>
+                                    </td>
+                                    <td>$<%= product.price %>
+                                    </td>
+                                    <td>$<%= product.quantity * product.price %>
+                                    </td>
+                                  </tr>
+                                  <% }) %>
+                              </tbody>
+                            </table>
+                          </div>
+
+
+                        </div>
+                      </div>
+                      <div class="row mt-4">
+                        <div class="col-md-6">
+                          <% let subtotal=0; %>
+                            <% order.products.forEach(function(product) { %>
+                              <% subtotal +=product.price * product.quantity; %>
+                                <% }) %>
+                                  <p><span class="fw-bold">SubTotal:</span> $<%= subtotal %>
+                                  </p>
+                                  <p><span class="fw-bold">Delivery charge:</span>
+                                    <% if (subtotal> 100) { %> $3 <% } else { %> $0 <% } %>
+                                  </p>
+                                  <p class="fs-5 fw-bold">Total Amount: $<%= order.totalAmount %>
+                                  </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                    <button type="button" class="btn btn-primary"
+                      onclick="downloadInvoice('<%= order._id %>')">Download</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+              <% }) %>
+      </div>
+
+
+
+
+
+
+
+      <div class="modal fade" id="productDetailModal<%= order._id %>" tabindex="-1" role="dialog"
+        aria-labelledby="productDetailModalLabel<%= order._id %>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content bg-secondary text-dark">
+            <div class="modal-header">
+              <h5 class="modal-title" id="productDetailModalLabel<%= order._id %>">Order Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 class="mb-4">Delivery Details</h2>
+              <ul class="list-unstyled font-size-small">
+                <li><strong>User Name:</strong>
+                  <%= order.deliveryDetails.userName %>
+                </li>
+                <li><strong>State:</strong>
+                  <%= order.deliveryDetails.state %>
+                </li>
+                <li><strong>House:</strong>
+                  <%= order.deliveryDetails.house %>
+                </li>
+                <li><strong>Landmark:</strong>
+                  <%= order.deliveryDetails.landmark %>
+                </li>
+                <li><strong>City:</strong>
+                  <%= order.deliveryDetails.city %>
+                </li>
+                <li><strong>Zip:</strong>
+                  <%= order.deliveryDetails.zip %>
+                </li>
+                <li><strong>Number:</strong>
+                  <%= order.deliveryDetails.number %>
+                </li>
+                <li><strong>Email:</strong>
+                  <%= order.deliveryDetails.email %>
+                </li>
+                <li><strong>Type:</strong>
+                  <%= order.deliveryDetails.type %>
+                </li>
+              </ul>
+
+              <h2 class="mb-4">Payment Method</h2>
+              <p class="font-size-small"><strong>Payment Method:</strong>
+                <%= order.paymentMethod %>
+              </p>
+
+              <h2 class="mb-4">Ordered Products</h2>
+              <% order.products.forEach(function(product) { %>
+                <div class="product mb-4">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <img class="img-fluid rounded" src="/uploads/<%= product.image %>" alt="<%= product.name %>">
+                    </div>
+                    <div class="col-md-8">
+                      <h3>
+                        <%= product.name %>
+                      </h3>
+                      <ul class="list-unstyled font-size-small">
+                        <li><strong>Product ID:</strong>
+                          <%= product.prodId %>
+                        </li>
+                        <li><strong>Category:</strong>
+                          <%= product.category %>
+                        </li>
+                        <li><strong>Subcategory:</strong>
+                          <%= product.subcategory %>
+                        </li>
+                        <li><strong>Quantity:</strong>
+                          <%= product.quantity %>
+                        </li>
+                        <li><strong>Size:</strong>
+                          <%= product.size %>
+                        </li>
+                        <li><strong>Price:</strong>
+                          <%= product.price %>
+                        </li>
+                        <li><strong>Order Status:</strong>
+                          <%= product.orderstatus %>
+                        </li>
+                        <li><strong>Delivery Status:</strong>
+                          <%= product.deliverystatus %>
+                        </li>
+                        <% if(product.deliverystatus === "delivered") {%>
+                        <li><strong>Delivery Time:</strong>
+                          <%= product.DeliveredAt ? product.DeliveredAt.toLocaleString('en-US', { dateStyle: 'short' ,
+                            timeStyle: 'short' , hour12: true }) : '' %>
+                        </li>
+                        <% } %>
+
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <% }) %>
+
+                  <h2 class="mb-4">Total Amount</h2>
+                  <p class="font-size-small"><strong>Total Amount:</strong>
+                    <%= order.totalAmount %>
+                  </p>
+            </div>
+            <div class="modal-footer">
+
+
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <% }) %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+  document.getElementById('cancelled-products-btn').addEventListener('click', function () {
+    filterOrdersByStatus('cancelled');
+  });
+
+  function filterOrdersByStatus(status) {
+    var orders = document.getElementsByClassName('card');
+
+    for (var i = 0; i < orders.length; i++) {
+      var order = orders[i];
+      var orderStatus = order.querySelector('.text-danger');
+
+      if (orderStatus && orderStatus.textContent.trim() === status) {
+        order.style.display = 'block';
+      } else {
+        order.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<script>
+  document.getElementById('delivered-products-btn').addEventListener('click', function () {
+    filterOrdersByDeliveryStatus('delivered');
+  });
+
+  function filterOrdersByDeliveryStatus(status) {
+    var orders = document.getElementsByClassName('card');
+
+    for (var i = 0; i < orders.length; i++) {
+      var order = orders[i];
+      var deliveryStatus = order.querySelector('.text-success');
+
+      if (deliveryStatus && deliveryStatus.textContent.trim() === status) {
+        order.style.display = 'block';
+      } else {
+        order.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<script>
+  document.getElementById('returned-products-btn').addEventListener('click', function () {
+    filterOrdersByReturnedStatus('returned');
+  });
+
+  function filterOrdersByReturnedStatus(status) {
+    var orders = document.getElementsByClassName('card');
+
+    for (var i = 0; i < orders.length; i++) {
+      var order = orders[i];
+      var returnedStatus = order.querySelector('.text-warning');
+
+      if (returnedStatus && returnedStatus.textContent.trim() === status) {
+        order.style.display = 'block';
+      } else {
+        order.style.display = 'none';
+      }
+    }
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  function confirmCancellation(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to cancel this product?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, cancel it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with the cancellation action
+        window.location.href = event.target.href;
+      }
+    });
+  }
+
+  function confirmReturn(event) {
+    event.preventDefault();
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to return this product?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ffc107',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, return it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Proceed with the return action
+        window.location.href = event.target.href;
+      }
+    });
+  }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.70/vfs_fonts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
+<!-- Include pdfmake script files -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+<script>
+  function convertToPDF(invoiceData, callback) {
+  
+    const docDefinition = {
+      content: [
+      
+        { text: `Invoice - Order ID: ${invoiceData.order._id}`, fontSize: 18, margin: [0, 0, 0, 20] },
+
+        // Customer Details
+        { text: `To: ${invoiceData.order.deliveryDetails.userName}`, fontSize: 12 },
+        { text: invoiceData.order.deliveryDetails.house },
+        { text: `${invoiceData.order.deliveryDetails.city}, ${invoiceData.order.deliveryDetails.state}` },
+        { text: `Phone: ${invoiceData.order.deliveryDetails.number}` },
+
+        // Invoice Details
+        { text: `ID: ${invoiceData.order._id}`, margin: [100, 0, 0, 0] },
+        { text: `Creation Date: ${invoiceData.order.createdAt}`, margin: [100, 0, 0, 0] },
+
+        // Order Items
+        { text: 'Order Items:', fontSize: 14, margin: [0, 20, 0, 0] },
+        {
+          style: 'table',
+          table: {
+            widths: ['auto', '*', 'auto', 'auto', 'auto'],
+            body: [
+              ['No.', 'Name', 'Quantity', 'Price', 'Total'],
+              ...invoiceData.order.products.map((product, index) => [
+                index + 1,
+                product.name,
+                product.quantity,
+                `$${product.price.toFixed(2)}`,
+                `$${(product.quantity * product.price).toFixed(2)}`
+              ])
+            ]
+          }
+        },
+
+        // Total Amount
+        {
+          text: `Total Amount: $${invoiceData.order.totalAmount.toFixed(2)}`,
+          fontSize: 14,
+          margin: [0, 20, 0, 0]
+        }
+      ],
+      styles: {
+        table: {
+          margin: [0, 10, 0, 0]
+        }
+      }
+    };
+
+   
+    pdfMake.createPdf(docDefinition).getBlob(callback);
+  }
+
+  function downloadFile(fileData, fileName) {
+   
+    saveAs(fileData, fileName);
+  }
+
+  function downloadInvoice(orderId) {
+    fetch(`/invoices?orderId=${orderId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.order && data.product) {
+          convertToPDF(data, (pdfBlob) => {
+            const fileName = `invoice_${data.order.orderId}.pdf`;
+            downloadFile(pdfBlob, fileName);
+          });
+        } else {
+          console.log('No invoice data found.');
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching invoice data:', error);
+      });
+  }
+</script>

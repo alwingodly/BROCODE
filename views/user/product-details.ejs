@@ -1,0 +1,378 @@
+
+<section class="hero-wrap hero-wrap-2" style="background-image: url('/uploads/bg_2.jpg');"
+    data-stellar-background-ratio="0.5">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-end justify-content-center">
+            <div class="col-md-9 ftco-animate mb-5 text-center">
+                <p class="breadcrumbs mb-0"><span class="mr-2"><a href="index.html">Home <i
+                                class="fa fa-chevron-right"></i></a></span> <span><a href="product.html">Products <i
+                                class="fa fa-chevron-right"></i></a></span> <span><%= product.category.category %><i
+                            class="fa fa-chevron-right"></i></span></p>
+                <h2 class="mb-0 bread"><%= product.productName %></h2>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section style="background-color: rgb(255, 255, 255);" class="ftco-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 ftco-animate">
+                <!-- <div class="image-zoom">
+                    <img src="/uploads/<%#= product.image[0] %>" class="img-fluid" alt="Product Image" id="zoom-image">
+                </div> -->
+                <div class="large-image" style="margin-top: 0px;">
+                    <a href="/uploads/<%=product.image[0]%>" class="MagicZoom"
+                        data-options="zoomPosition: inner">
+                        <img style="height: 546px;" data-hash="product-1" class="product_big_img"
+                            src="/uploads/<%=product.image[0]%>" alt="" id="largeImage">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-8 product-details pl-md-5 ftco-animate">
+                 <h3><%= product.productName %></h3>
+                 <h5 class="text-secondary"><%= product.category.category%></h5>
+                 <h6><%= product.subcategory.subCategory%></h6>
+                 <p class="size">
+                  <%= product.size %> ml
+                </p>
+                <!-- <div class="rating">
+                    <p class="text-left mr-4">
+                        <a href="#"><span class="fa fa-star text-light"></span></a>
+                        <a href="#"><span class="fa fa-star text-light"></span></a>
+                        <a href="#"><span class="fa fa-star text-light"></span></a>
+                        <a href="#"><span class="fa fa-star text-light"></span></a>
+                        <a href="#"><span class="fa fa-star text-light"></span></a>
+                    </p>
+                    <p class="text-left d-flex">
+                        <a href="#" style="color: #000; text-decoration: none;">500 <span style="color: #bbb;">Sold</span></a>
+                    </p>
+
+                </div> -->
+                <% if(product.offer=== true || product.catoffer === true) {%>
+                  <span class="text-success">
+                    <% if(product.offerPercentage > product.catofferPercentage) {%>
+                      <%= product.offerPercentage%> % off
+                      <%} else {%>
+                        <%= product.catofferPercentage%> % off
+                        <% } %>
+                  </span>
+                  <% } %>
+                <p class="price">
+                  <% if (product.offer === true || product.catoffer === true) { %>
+                    <p class="price">
+                      <% if(product.offerPercentage > product.catofferPercentage) {%>
+                        <span class="offer-price">$ <%= product.offerPrice %></span>
+                        <%} else {%>
+                          <span class="offer-price">$ <%= product.catofferPrice %></span>
+                          <% } %>
+                      <br>
+                      <del class="text-secondary">$ <%= product.price %>.00</del>
+                    </p>
+                  <% } else { %>
+                    <p class="price">
+                      $ <%= product.price %>.00
+                    </p>
+                  <% } %>
+                </p>
+                
+                <p><%= product.description %></p>
+                <div class="row mt-4 col-lg-4">
+                  <% if(product.stock!==0){ %>
+                    <div class="input-group col-md-12 mb-3">
+                      <span class="input-group-prepend">
+                        <button type="button" class="quantity-left-minus btn" data-product-id="<%= product._id %>">
+                          <i class="fa fa-minus"></i>
+                        </button>
+                      </span>
+                      <input type="text" id="quantity-<%= product._id %>" name="quantity" class="quantity form-control input-number" value="1" min="1" max="<%= product.stock %>">
+                      <span class="input-group-append">
+                        <button type="button" class="quantity-right-plus btn" data-product-id="<%= product._id %>">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                      </span>
+                    </div>
+                    <% } %>
+                  
+                    <div class="col-md-12">
+                      <% if (product.stock === 0) { %>
+                        <p class="text-danger">
+                          Out of stock
+                        </p>
+                      <% } else if (product.stock === 1) { %>
+                        <p class="text-success">
+                          Only 1 item left
+                        </p>
+                      <% } else if (product.stock === 2) { %>
+                        <p class="text-success">
+                          Only 2 items left
+                        </p>
+                      <% }else {%>
+                      <p style="color: #000;"><%= product.stock %> piece available</p>
+                      <% } %>
+                    </div>
+                  </div>
+                  
+                  <span>
+                    <% if (user && product.stock!==0) { %>
+                        <a href="#" class="btn btn-primary py-3 px-5 mr-2" onclick="addToCart('<%= product._id %>')">Add to Cart</a>
+                        <% } else if(product.stock===0) { %>
+                          <a href="#" class="btn btn-primary py-3 px-5 mr-2" onclick="notStock()" >Add to Cart</a>
+                     
+                    <% } else { %>
+                      <a class="btn btn-primary py-3 px-5 mr-2" onclick="notToCart()">Add to Cart</a>
+                    <% } %>
+                    </span>
+                  
+                  <span><% if (user) { %>
+                    <a href="#" class="btn btn-primary py-3 px-5 mr-2" onclick="addToWishlist('<%= product._id %>', event)">
+                         Add to wishlist
+                     </a>
+                  <% } else { %>
+                  <a href="#" class=" btn btn-primary py-3 px-5 mr-2"  onclick="notToWishlist()" >Add to wishlist</a>
+                    <% } %>
+                   
+                    <!-- <a href="cart.html" class="btn btn-primary py-3 px-5">Buy now</a> -->
+                    </span>
+            </div>
+            </div>
+        
+        <div class="row mt-5">
+            <div class="col-md-12 nav-link-wrap">
+                <div class="nav nav-pills d-flex text-center" id="v-pills-tab" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link ftco-animate active mr-lg-1" id="v-pills-1-tab" data-toggle="pill"
+                        href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Description</a>
+
+                    <a class="nav-link ftco-animate mr-lg-1" id="v-pills-2-tab" data-toggle="pill" href="#v-pills-2"
+                        role="tab" aria-controls="v-pills-2" aria-selected="false">Manufacturer</a>
+
+                    <a class="nav-link ftco-animate" id="v-pills-3-tab" data-toggle="pill" href="#v-pills-3" role="tab"
+                        aria-controls="v-pills-3" aria-selected="false">Reviews</a>
+
+                </div>
+            </div>
+            <div class="col-md-12 tab-wrap">
+
+                <div class="tab-content bg-light" id="v-pills-tabContent">
+
+                    <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="day-1-tab">
+                        <div class="p-4">
+                            <h3 class="mb-4"><%= product.productName %></h3>
+                            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from
+                                it would have been rewritten a thousand times and everything that was left from its
+                                origin would be the word "and" and the Little Blind Text should turn around and return
+                                to its own, safe country. But nothing the copy said could convince her and so it didn’t
+                                take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and
+                                Parole and dragged her into their agency, where they abused her for their.</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-2" role="tabpanel" aria-labelledby="v-pills-day-2-tab">
+                        <div class="p-4">
+                            <h3 class="mb-4">Manufactured By <%= product.subcategory.subCategory%></h3>
+                            <p>On her way she met a copy. The copy warned the Little Blind Text, that where it came from
+                                it would have been rewritten a thousand times and everything that was left from its
+                                origin would be the word "and" and the Little Blind Text should turn around and return
+                                to its own, safe country. But nothing the copy said could convince her and so it didn’t
+                                take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and
+                                Parole and dragged her into their agency, where they abused her for their.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    const largeImage = document.querySelector('.large-image img');
+	const overlay = document.createElement('div');
+	overlay.classList.add('overlay');
+    largeImage.parentElement.appendChild(overlay);
+   document.addEventListener('DOMContentLoaded', function () {
+		var smallImages = document.getElementsByClassName('small-image');
+		for (var i = 0; i < smallImages.length; i++) {
+			smallImages[i].addEventListener('click', function () {
+				var imgSrc = this.getAttribute('data-imgsrc');
+				var largeImage = document.getElementById('largeImage');
+				largeImage.src = imgSrc;
+				new MagicZoom(largeImage);
+			});
+		}
+	});
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+<script>
+    function notToCart(){
+        Swal.fire({
+  icon: 'error',
+  title: 'You need to login first',
+  text: 'Cant add item to cart!',
+  footer: '<a href="/userlogin">login here</a>'
+})
+    }
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        $(document).ready(function () {
+                            $('.quantity-right-plus').click(function (e) {
+                                e.preventDefault();
+                                var $row = $(this).closest('.input-group');
+                                var quantityInput = $row.find('.quantity');
+                                console.log(quantityInput,"👀💖");
+                                var quantity = parseInt(quantityInput.val());
+                                console.log(quantity,"👀");
+                                var maxQuantity = parseInt(quantityInput.attr('max'));
+                                console.log(maxQuantity,"👀👀");
+                                var price = parseFloat($row.next('.price').text());
+                                var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price)+price;
+                                $row.nextAll('.total').find('span').text('$' + total.toFixed(2));
+                                // quantity += 1;
+                                // quantityInput.val(quantity);
+                                if(quantity<maxQuantity){
+		                            quantity += 1;
+	                             	console.log(quantity,"updated?😊");
+                                 quantityInput.val(quantity);
+                               	} else{
+	                            	console.log(quantity,"stop limit reached?😊");
+                                quantityInput.val(quantity);
+	                              }
+                            });
+                    
+                            $('.quantity-left-minus').click(function (e) {
+                                e.preventDefault();
+                                var $row = $(this).closest('.input-group');
+                                var quantityInput = $row.find('.quantity');
+                                var quantity = parseInt(quantityInput.val());
+                                if (quantity > 1) {
+                                    var price = parseFloat($row.next('.price').text());
+                                    var total = isNaN(quantity) || isNaN(price) ? 0 : (quantity * price)-price;
+                                    $row.nextAll('.total').find('span').text('$' + total.toFixed(2));
+                                    quantity -= 1;
+                                    quantityInput.val(quantity);
+                                }
+                            });
+                        });
+                    </script>
+                    
+<script>
+
+    // Function to handle "Add to Cart" button click
+    function addToCart(productId) {
+  var quantityInput = document.getElementById('quantity-' + productId);
+  var quantityValue = quantityInput.value;
+  console.log(quantityValue);
+  console.log(productId)
+
+  // Make an AJAX request to add the product to the cart
+  $.ajax({
+    url: '/cartload',
+    type: 'GET',
+    data: {
+      productId: productId,
+      quantity: quantityValue
+    },
+    success: function (response) {
+        console.log("success")
+      Swal.fire({
+        title: 'Added to Cart',
+        text: 'The item has been added to your cart.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function () {
+        // window.location.reload(); // Reload the page to update the cart
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log('Error adding product to cart:', error);
+      // You can display an error message here or handle the error in a different way
+    }
+  });
+}
+
+    
+    // Attach event listeners to the quantity buttons
+    // document.addEventListener('DOMContentLoaded', function() {
+    //   var minusButtons = document.querySelectorAll('.quantity-left-minus');
+    //   var plusButtons = document.querySelectorAll('.quantity-right-plus');
+    
+    //   minusButtons.forEach(function(button) {
+    //     button.addEventListener('click', function() {
+    //       var productId = button.getAttribute('data-product-id');
+    //       decreaseQuantity(productId);
+    //     });
+    //   });
+    
+    //   plusButtons.forEach(function(button) {
+    //     button.addEventListener('click', function() {
+    //       var productId = button.getAttribute('data-product-id');
+    //       increaseQuantity(productId);
+    //     });
+    //   });
+    // });
+    
+  </script>
+
+
+
+<script>
+  function addToWishlist(productId,event) {
+  // Make an AJAX request to add the product to the cart
+  event.preventDefault(); 
+  $.ajax({
+    url: '/wishload',
+    type: 'GET',
+    data: {
+      productId: productId
+    },
+    success: function (response) {
+        console.log("success")
+      Swal.fire({
+        title: 'Added to your wishlist',
+        text: 'The item has been added to your Wishlist.',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(function () {
+        // window.location.reload(); // Reload the page to update the cart
+      });
+    },
+    error: function (xhr, status, error) {
+      // Handle the error
+      console.log('Error adding product to Wishlist:', error);
+      // You can display an error message here or handle the error in a different way
+    }
+  });
+}
+  </script>
+<script>
+  function notToWishlist(){
+        Swal.fire({
+  icon: 'error',
+  title: 'You need to login first',
+  text: 'Cant add item to Wishlist!',
+  footer: '<a href="/userlogin">login here</a>'
+})
+    }
+  </script>
+  <script>
+    function notStock(){
+          Swal.fire({
+    icon: 'error',
+    title: 'Out of stock',
+    text: 'Cant add item to cart!',
+  })
+      }
+    </script>
+

@@ -1,0 +1,196 @@
+<div class="container-scroller">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+            <li class="nav-item profile">
+                <div class="profile-desc">
+                    <div class="profile-pic">
+                        <div class="count-indicator">
+                            <img class="img-xs rounded-circle " src="/assets/images/faces/face15.jpg" alt="">
+                            <span class="count bg-success"></span>
+                        </div>
+                        <div class="profile-name">
+                            <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                        </div>
+                    </div>
+                    <a href="#" id="profile-dropdown" data-toggle="dropdown"><i class="mdi mdi-dots-vertical"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right sidebar-dropdown preview-list"
+                        aria-labelledby="profile-dropdown">
+                        <a href="#" class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-settings text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="preview-item-content">
+                                <p class="preview-subject ellipsis mb-1 text-small">Account settings</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-onepassword  text-info"></i>
+                                </div>
+                            </div>
+                            <div class="preview-item-content">
+                                <p class="preview-subject ellipsis mb-1 text-small">Change Password</p>
+                            </div>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item preview-item">
+                            <div class="preview-thumbnail">
+                                <div class="preview-icon bg-dark rounded-circle">
+                                    <i class="mdi mdi-calendar-today text-success"></i>
+                                </div>
+                            </div>
+                            <div class="preview-item-content">
+                                <p class="preview-subject ellipsis mb-1 text-small">To-do list</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item nav-category">
+                <span class="nav-link">Navigation</span>
+            </li>
+        </li>
+        <li class="nav-item menu-items">
+          <a class="nav-link" href="/admin/admin-panel">
+            <span class="menu-icon">
+              <i class="mdi mdi-speedometer"></i>
+            </span>
+            <span class="menu-title">dashboard</span>
+          </a>
+        </li>
+        <br />
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/product">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-speedometer"></i>
+                    </span>
+                    <span class="menu-title">products</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coustomer">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-laptop"></i>
+                    </span>
+                    <span class="menu-title">Coustomer</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/order">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-playlist-play"></i>
+                    </span>
+                    <span class="menu-title">Order</span>
+                </a>
+            </li>
+            <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/sales-report">
+                  <span class="menu-icon">
+                    <i class="mdi mdi-chart-gantt"></i>
+                  </span>
+                  <span class="menu-title">Sales Report</span>
+                </a>
+              </li>
+              <br>
+            <li class="nav-item menu-items">
+                <a class="nav-link" href="/admin/admin-panel/coupon">
+                    <span class="menu-icon">
+                        <i class="mdi mdi-table-large"></i>
+                    </span>
+                    <span class="menu-title">Coupon</span>
+                </a>
+            </li>
+            <br>
+      <li class="nav-item menu-items">
+        <a class="nav-link" href="offer">
+          <span class="menu-icon">
+            <i class="mdi mdi-paper-cut-vertical"></i>
+          </span>
+          <span class="menu-title">Offers</span>
+        </a>
+      </li>
+        </ul>
+    </nav>
+   
+    <div class="container">
+        <div class="card">
+            <form action="/admin/admin-panel/product/add-subcategory" method="POST" id="add-subcategory-form">
+                <div class="form-group mb-3">
+                  <label for="category">Category</label>
+                  <select class="user-input" id="category-select" name="category" required>
+                    <option selected disabled></option>
+                    <% categories.forEach(category=> { %>
+                    <option value="<%= category._id %>">
+                      <%= category.category %>
+                    </option>
+                    <% }); %>
+                  </select>
+                  <span id="category-error" class="error-message text-secondary" style="display: none;">Please select a category.</span>
+                </div>
+                <label for="add-subcategory" class="user-label text-light">Add Sub Category:</label>
+                <input type="text" id="add-subcategory-input" name="subCategory" class="user-input" placeholder="Add new Sub category" required>
+                <button type="submit" class="btn btn-primary btn-block text-uppercase mb-3" onclick="validateForm()">Add Sub category</button>
+              </form>
+            
+              
+        </div>
+        <div class="tm-block-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                <h2 class="tm-block-title">Brands</h2>
+                <div class="tm-product-table-container">
+                    <table class="table tm-table-small tm-product-table">
+                        <thead class="bg-light">
+                            <tr>
+                              <th>CATEGORY</th>
+                              <th>SUBCATEGORY</th>
+                              <th class="text-center">Actions</th>
+                            </tr>
+                          </thead>
+                        <tbody>
+                            <% subcategories.forEach(subCategory=> { %>
+                                <tr>
+                                    <td class="tm-product-name">
+                                        <%= subCategory.category.category %>
+                                    </td>
+                                    <td class="tm-product-name">
+                                        <%= subCategory.subCategory %>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="/admin/delete-subcategory?subcategoryId=<%= subCategory._id %>" class="tm-product-delete-link">
+                                          <i class="fa-solid fa-trash-can tm-product-delete-icon"></i>
+                                        </a>
+                                      </td>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="/css/category.css">
+
+
+<script>
+    function validateForm() {
+      var categorySelect = document.getElementById('category-select');
+      var categoryError = document.getElementById('category-error');
+  
+      if (categorySelect.value === "") {
+        categoryError.style.display = 'block';
+        return false;
+      } else {
+        categoryError.style.display = 'none';
+        return true;
+      }
+    }
+  </script>
