@@ -63,8 +63,6 @@ router.get("/logout", (req, res) => {
   res.redirect("/admin");
 });
 
-
-
 //----------------------------------------PRODUCT-----------------------------------------------//
 
 router.get('/admin-panel/product', requireLogin,productController.getProduct)//----------------------GET ADMIN PRODUCT PAGE
