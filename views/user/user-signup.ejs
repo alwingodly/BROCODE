@@ -111,8 +111,53 @@
       return;
     }
 
+    // Check password strength
+    var password = passwordInput.value;
+    var passwordStrength = checkPasswordStrength(password);
+    if (passwordStrength < 2) {
+      displayErrorMessage(
+        "passwordError",
+        "Please enter a stronger password"
+      );
+      return;
+    }
+
     // Submit the form if all validations pass
     event.target.submit();
+  }
+
+  function checkPasswordStrength(password) {
+    // Password strength rules
+    var minLength = 8;
+    var minUpperCase = 1;
+    var minLowerCase = 1;
+    var minDigits = 1;
+
+
+    var strength = 0;
+
+    // Check length
+    if (password.length >= minLength) {
+      strength++;
+    }
+
+    // Check uppercase letters
+    if (/[A-Z]/.test(password)) {
+      strength++;
+    }
+
+    // Check lowercase letters
+    if (/[a-z]/.test(password)) {
+      strength++;
+    }
+
+    // Check digits
+    if (/\d/.test(password)) {
+      strength++;
+    }
+
+  
+    return strength;
   }
 
   function displayErrorMessage(elementId, errorMessage) {

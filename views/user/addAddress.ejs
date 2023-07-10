@@ -160,7 +160,7 @@ form.addEventListener("submit", function (event) {
 
   // Regular expression patterns
   var numberPattern = /^\d+$/; // Only allows digits
-  var zipPattern = /^\d{5}$/; // Allows exactly 5 digits
+  var zipPattern = /^\d{5}$|^\d{6}$/;; // Allows exactly 5 digits
   var emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // Email pattern
 
   if (
