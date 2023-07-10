@@ -145,32 +145,58 @@
 <script>
   var form = document.getElementById("billingForm");
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
 
-    var userName = form.elements.userName.value.trim();
-    var state = form.elements.state.value.trim();
-    var address = form.elements.address.value.trim();
-    var city = form.elements.city.value.trim();
-    var zip = form.elements.zip.value.trim();
-    var number = form.elements.number.value.trim();
-    var email = form.elements.email.value.trim();
-    var type = form.elements.type.value;
-    var setError = form.elements.setDefault.checked;
+  var userName = form.elements.userName.value.trim();
+  var state = form.elements.state.value.trim();
+  var address = form.elements.address.value.trim();
+  var city = form.elements.city.value.trim();
+  var zip = form.elements.zip.value.trim();
+  var number = form.elements.number.value.trim();
+  var email = form.elements.email.value.trim();
+  var type = form.elements.type.value;
+  var setError = form.elements.setDefault.checked;
 
-    if (
-      userName === "" ||
-      state === "" ||
-      address === "" ||
-      city === "" ||
-      zip === "" ||
-      number === "" ||
-      email === ""
-    ) {
-      alert("Please fill in all the required fields.");
-      return;
-    }
+  // Regular expression patterns
+  var numberPattern = /^\d+$/; // Only allows digits
+  var zipPattern = /^\d{5}$/; // Allows exactly 5 digits
+  var emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; // Email pattern
 
-    form.submit();
-  });
+  if (
+    userName === "" ||
+    state === "" ||
+    address === "" ||
+    city === "" ||
+    zip === "" ||
+    number === "" ||
+    email === ""
+  ) {
+    alert("Please fill in all the required fields.");
+    return;
+  }
+
+  if (!number.match(numberPattern)) {
+    alert("Please enter a valid phone number.");
+    return;
+  }
+
+  if (number.length < 10) {
+    alert("Mobile number should be at least 10 digits.");
+    return;
+  }
+
+  if (!zip.match(zipPattern)) {
+    alert("Please enter a valid postcode/ZIP.");
+    return;
+  }
+
+  if (!email.match(emailPattern)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
+
+  form.submit();
+});
+
 </script>
