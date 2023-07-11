@@ -212,7 +212,7 @@
                   <th class="text-light">Category</th>
                   <th class="text-light">Quantity</th>
                   <th class="text-light">Amount</th>
-                  <th class="text-light">discount</th>
+                
                   <th class="text-light">Total Amount</th>
                   <th class="text-light text-center">Payment Method</th>
                 </tr>
@@ -226,7 +226,7 @@
                     <td><%= order.products.category %></td>
                     <td><%= order.products.quantity %></td>
                     <td>$ <%= order.products.quantity * order.products.price%></td>
-                    <td>$ <%= order.discount %></td>
+                    
                     <td>$ <%= order.totalAmount %></td>
                     <td class="text-center"><%= order.paymentMethod %></td>
                   </tr>
@@ -375,7 +375,7 @@
           <th class="text-light">Category</th>
           <th class="text-light">Quantity</th>
           <th class="text-light">Amount</th>
-          <th class="text-light">discount</th>
+         
           <th class="text-light">Total Amount</th>
           <th class="text-light text-center">Payment Method</th>
         </tr>`;
@@ -390,7 +390,7 @@
     <td>${order.products.category}</td>
     <td>${order.products.quantity}</td>
     <td>$ ${order.products.quantity * order.products.price}</td>
-    <td>$ ${order.discount}</td>
+   
     <td>$ ${order.totalAmount}</td>
     <td class="text-center">${order.paymentMethod}</td>
   </tr>`;
