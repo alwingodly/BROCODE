@@ -195,6 +195,7 @@ button[type="submit"] {
           <table id="coupon-table">
             <thead>
               <tr>
+                <th>Status</th>
                 <th>Coupon Code</th>
                 <th>Price Range</th>
                 <th>Discount Amount</th>
@@ -203,12 +204,19 @@ button[type="submit"] {
             </thead>
             <tbody>
               <% coupon.reverse().forEach(coupon => { %>
+                
                 <tr>
+                  <% if(coupon.active === true ) {%>
+                  <td class="text-success">Active</td>
+                  <%} else {%>
+                  <td class="text-secondary">Expired</td>
+                  <% } %>
                   <td class="text-light"><%= coupon.couponCode %></td>
                   <td class="text-light"><%= coupon.priceRange %></td>
                   <td class="text-light"><%= coupon.discountAmount %></td>
                   <td class="text-light"><%= coupon.expirationDate %></td>
                 </tr>
+                
               <% }) %>
             </tbody>
           </table>
