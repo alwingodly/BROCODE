@@ -167,18 +167,19 @@ button[type="submit"] {
           <h1 class="text-light">Create Coupon</h1>
           <form id="coupon-form" action="/admin/createCoupon" method="POST">
             <div class="form-group">
-              <label for="price-range">price range:</label>
+              <label for="price-range">Price Range:</label>
               <input type="text" id="price-range" name="priceRange" required>
+              <p id="price-error" style="color: red; display: none;">Price range must be a number.</p>
             </div>
     
             <div class="form-group">
               <label for="discount-amount">Discount Amount:</label>
               <input type="number" id="discount-amount" name="discountAmount" required>
             </div>
-    
             <div class="form-group">
               <label for="expiration-date">Expiration Date:</label>
               <input type="date" id="expiration-date" name="expirationDate" required>
+              <p id="expiration-error" style="color: red; display: none;">Expiration date must be greater than the current date.</p>
             </div>
     
             <div class="form-group">
@@ -223,3 +224,35 @@ button[type="submit"] {
           
         </div>
       </div>
+
+      <script>
+        var expirationDateInput = document.getElementById('expiration-date');
+        var expirationError = document.getElementById('expiration-error');
+      
+        expirationDateInput.addEventListener('input', function() {
+          var expirationDate = new Date(expirationDateInput.value);
+          var currentDate = new Date();
+      
+          if (expirationDate <= currentDate) {
+            expirationError.style.display = 'block';
+          } else {
+            expirationError.style.display = 'none';
+          }
+        });
+      </script>
+      <script>
+        var priceRangeInput = document.getElementById('price-range');
+        var priceError = document.getElementById('price-error');
+      
+        priceRangeInput.addEventListener('input', function() {
+          var priceRange = priceRangeInput.value;
+      
+          if (isNaN(priceRange)) {
+            priceError.style.display = 'block';
+          } else {
+            priceError.style.display = 'none';
+          }
+        });
+      </script>
+    
+      
