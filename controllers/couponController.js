@@ -35,7 +35,7 @@ console.log(req.body,"🐱‍🚀");
   
 
    const coupons = new Coupon({
-    couponCode: coupon,
+      couponCode: coupon,
       priceRange: priceRange,
       discountAmount: discountAmount,
       expirationDate: expirationDate,

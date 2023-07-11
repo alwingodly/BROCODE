@@ -218,14 +218,25 @@
               <%subtotal = cartItem.totalprice; %> 
               <%manageTotal = cartItem.manageTotal; %>
             <% }) %> 
-            <% }) %> 
+            
             <% let deliveryCharge = (subtotal < 100) ? 3 : 0; %>
             <p class="d-flex">
+              <% if (cartItem.couponDiscount === 0) { %>
               <span>Subtotal</span>
               <% if (subtotal < 100) { %>
               <span id="total-quantity">$<%= subtotal - 3 %></span>
               <% } else { %>
               <span id="total-quantity">$<%= subtotal %></span>
+              <% } %>
+              <% } %>
+
+              <% if (cartItem.couponDiscount!==0) { %>
+              <span>Subtotal</span>
+              <% if (subtotal < 100) { %>
+              <span id="total-quantity">$<%= subtotal-cartItem.couponDiscount- 3 %></span>
+              <% } else { %>
+              <span id="total-quantity">$<%= subtotal-cartItem.couponDiscount %></span>
+              <% } %>
               <% } %>
             </p>
             <p class="d-flex">
@@ -234,7 +245,9 @@
             </p>
             <p class="d-flex">
               <span>Discount</span>
-              <span>$0</span>
+             
+              <span>$ <%=cartItem.couponDiscount %></span>
+              <% }) %> 
             </p>
             <hr />
 
