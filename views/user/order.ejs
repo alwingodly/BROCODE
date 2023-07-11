@@ -233,9 +233,9 @@
               <% if (cartItem.couponDiscount!==0) { %>
               <span>Subtotal</span>
               <% if (subtotal < 100) { %>
-              <span id="total-quantity">$<%= subtotal-cartItem.couponDiscount- 3 %></span>
+              <span id="total-quantity">$<%= subtotal+cartItem.couponDiscount- 3 %></span>
               <% } else { %>
-              <span id="total-quantity">$<%= subtotal-cartItem.couponDiscount %></span>
+              <span id="total-quantity">$<%= subtotal+cartItem.couponDiscount %></span>
               <% } %>
               <% } %>
             </p>
