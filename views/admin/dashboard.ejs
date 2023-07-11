@@ -321,6 +321,89 @@
                 </div>
               </div>
             </div> -->
+            
+              <div class="container-wrapper">
+                <div class="row ">
+                  <div class="col-md-12 p-0 grid-margin">
+                    <div class="card">
+                      <div class="card-body">
+                       
+            <h4 class="card-title">OUT OF STOCK PRODUCTS</h4>
+            <div class="table-responsive">
+              <table class="table" id="myTable">
+                <thead>
+                  <tr>
+                    <th class="text-light">Product Image</th>
+                    <th class="text-light">Product Name</th>
+                    <th class="text-light">Category</th>
+                    <th class="text-light">Sub Category</th>
+                    <th class="text-light">Price</th>
+                    <th class="text-light">Stock</th>
+                    <th class="text-light text-center pl-5">block/unblock</th>
+                    <th class="text-light text-center pl-5">Edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% products.reverse().forEach((product)=> {
+                    if (product.category && product.subcategory) { %>
+                      <% if(product.stock <=20) {%>
+                    <tr>
+                      <td>
+                        <img src="/uploads/<%= product.image[0] %>" alt="image" />
+                      </td>
+                      <td>
+                        <span class="pl-2">
+                          <%=product.productName %>
+                        </span>
+                      </td>
+                      <td>
+                        <%= product.category.category %>
+                      </td>
+                      <td>
+                        <%= product.subcategory.subCategory %>
+                      </td>
+                      <td>
+                        <%= product.price %>
+                      </td>
+                      <td  class="text-danger" >
+                        <%= product.stock %>
+                      </td>
+                      
+                      <td class="text-center">
+                        <% if (product.isBlocked) { %>
+                          <a href="/admin/unblock-product?productId=<%= product._id %>" class="tm-product-block-link">
+                            <i class="fa-solid fa-lock tm-product-block-icon text-light"></i>
+                          </a>
+                          <% } else { %>
+                            <a href="/admin/block-product?productId=<%= product._id %>" class="tm-product-block-link">
+                              <i class="fa-solid fa-lock-open tm-product-block-icon text-light"></i>
+                            </a>
+                            <% } %>
+                      </td>
+                      <td>
+                        <a href="/admin/admin-panel/product/edit-product?productId=<%= product._id %>">
+                          <i class="fa-solid fa-pencil tm-product-edit-icon text-light"></i>
+                        </a>
+                      
+                    </tr>
+                    <% } %>
+                    <% } }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            
+
+
+
+
+
+
+
             <div class="main-panel">
               <div class="container-wrapper">
                 <div class="row ">
@@ -399,9 +482,9 @@
             </div>
           </div>
         </div>
-        <!-- main-panel ends -->
+        
       </div>
-      <!-- page-body-wrapper ends -->
+    
     </div>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

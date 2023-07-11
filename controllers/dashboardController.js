@@ -120,6 +120,11 @@ exports.dashboard = async (req, res) => {
       const categories = categoryCounts.map(category => category.category);
       const counts = categoryCounts.map(category => category.count);
 
+      const products = await Product.find()
+      .populate('category', 'category') 
+      .populate('subcategory', 'subCategory'); 
+
+
       console.log(categories ,counts);
 
       const codTotalAmount = codOrders.length > 0 ? codOrders[0].totalAmount : 0;
@@ -161,7 +166,8 @@ exports.dashboard = async (req, res) => {
         monthlyRevenue,
         categories,
         counts,
-        productCounts
+        productCounts,
+        products
       });
     } catch (err) {
       console.error(err);

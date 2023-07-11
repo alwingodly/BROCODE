@@ -31,7 +31,7 @@ exports.address = async (req, res) => {
     const addresses = await Address.find({ userId: loggedInUserId }).sort({ default: -1 });
     // const product = await Product.findById(productId).populate('category').populate('subcategory'); 
     // console.log("addresses of user", addresses)
-   
+   console.log(addresses.length);
     res.render('user/address', { user: loggedInUserId, addresses,  use: true  }); 
     
   } catch (err) {
