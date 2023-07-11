@@ -12,6 +12,7 @@ const productController = require('../controllers/productController')
 const customerController = require('../controllers/customerController')
 const offerController = require('../controllers/offerController')
 const couponController = require('../controllers/couponController')
+const adminController = require('../controllers/adminController')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -34,34 +35,11 @@ function requireLogin(req, res, next) {
     res.redirect("/admin");
   }
 }
-var err_msg
-router.get("/", (req, res) => {
-  if (req.session.admin) {
-    res.redirect("/admin/admin-panel");
-  } 
-  else {
-    res.render("admin/admin-login", { err_msg});
-    err_msg = null
-  }
-});
 
-router.post("/adminsubmit", async (req, res) => {
-  if (req.body.email === email && req.body.password === password) {
-    req.session.admin = email;
-    console.log(req.session.admin);
-    res.cookie("admin", "true", { maxAge: 3600000 });
-    res.redirect("/admin/admin-panel");
-  } else {
-    err_msg = "Invalid email or password.";
-    res.redirect('/admin')
-  }
-});
-
-router.get("/logout", (req, res) => {
-  req.session.admin = false
-  res.clearCookie("admin");
-  res.redirect("/admin");
-});
+//------------------------------------------------ADMIN---------------------------------------//
+router.get("/", adminController.admin)//----------------------------------------------------------GET TO ADMIN
+router.post("/adminsubmit", adminController.postAdminSubmit)//------------------------------------ADMIN LOGIN
+router.get("/logout", adminController.adminLogout)//----------------------------------------------ADMIN LOGOUT
 
 //----------------------------------------PRODUCT-----------------------------------------------//
 
@@ -89,7 +67,6 @@ router.post("/admin-panel/product/edit-product", requireLogin, upload.array("ima
       uploadedImages = existingImages;
     }
     console.log(uploadedImages, "---------------------------------------------");
-    // Update the product data with the submitted form data
     product.productName = req.body.productName;
     product.description = req.body.description;
     product.category = req.body.category;
@@ -99,11 +76,7 @@ router.post("/admin-panel/product/edit-product", requireLogin, upload.array("ima
     product.size = req.body.size;
     product.price = req.body.price;
     product.image = uploadedImages;
-
-   
     await product.save();
-
-    
     res.redirect("/admin/admin-panel/product");
   } catch (error) {
     console.error(error);
@@ -146,10 +119,7 @@ router.post('/admin-panel/product/add-product', requireLogin, upload.array('imag
   }
 });
 
-
-
 //------------------------------------------------CATEGORY------------------------------------------------------//
-
 
 router.get('/admin-panel/product/add-category',requireLogin,categoryController.getAddCategory)//--------------------TO ADD CATEGORY
 router.get('/delete-category', categoryController.getDeleteCategory)//----------------------------------------------TO DELETE CATEGORY
@@ -158,7 +128,6 @@ router.get("/block-category", requireLogin, categoryController.getBlockCategory)
 router.get("/unblock-category", requireLogin, categoryController.getUnblockCategory)//------------------------------UNBLOCK CATEGORY
 
 // ----------------ADD CATEGORY----------------//
-
 
 router.post('/admin-panel/product/add-category', upload.array('categoryImage', 3), async (req, res) => {
   try {
@@ -175,10 +144,8 @@ router.post('/admin-panel/product/add-category', upload.array('categoryImage', 3
       res.render('admin/category', { admin: true,categories,error: 'Category name already exists' });
       return;
     }
-    
     console.log(category);
     console.log(uploadedImages);
-    
     const newCategory = await Category.create({ category, categoryImage: uploadedImages });
     res.redirect('/admin/admin-panel/product/add-category');
   } catch (error) {
@@ -187,9 +154,6 @@ router.post('/admin-panel/product/add-category', upload.array('categoryImage', 3
   }
 });
 
-
-
-// POST route to update the category
 router.post('/admin-panel/product/add-category/edit-category', requireLogin, upload.array('categoryImage', 3), async (req, res, next)=> {
   try {
     const categoryId = req.query.categoryId;
@@ -217,7 +181,6 @@ router.post('/admin-panel/product/add-category/edit-category', requireLogin, upl
   }
 });
 
-
 //---------------------------------------SUB CATEGORY---------------------------------//
 
 router.get("/admin-panel/product/add-subcategory", requireLogin, categoryController.getAddSubcategory)//-----------ADD SUBCATEGORY PAGE
@@ -238,19 +201,19 @@ router.post('/orderstatus', requireLogin, orderController.orderStatus)
 
 //-------------------------------------COUPON-------------------------------------------//
 
-router.get("/admin-panel/coupon", requireLogin, couponController.coupon)
-router.post("/createCoupon", requireLogin, couponController.createCoupon)
+router.get("/admin-panel/coupon", requireLogin, couponController.coupon)//------------------------------------------TO GET TO THE COUPON PAGE
+router.post("/createCoupon", requireLogin, couponController.createCoupon)//-----------------------------------------TO CREATE COUPON
 
 
 //------------------------------------SALES REPORT------------------------------------//
 
-router.get('/admin-panel/sales-report',requireLogin,salesController.salesReport)
+router.get('/admin-panel/sales-report',requireLogin,salesController.salesReport)//-----------------------------------TO GET TO SALES REPORT PAGE
 router.get('/sales-form',requireLogin,salesController.salesForm)
 router.get('/sales-report/search', salesController.getSalesReport);
 
 //--------------------------------------DASHBOARD-------------------------------------/?
 
-router.get("/admin-panel", requireLogin, dashboardController.dashboard) 
+router.get("/admin-panel", requireLogin, dashboardController.dashboard) //--------------------------------------------DASHBOARD
 
 //----------------------------------------OFFER---------------------------------------//
 router.get("/admin-panel/offer", requireLogin, offerController.getOffer)
@@ -258,6 +221,6 @@ router.post('/productOffer',requireLogin, offerController.productOffer )
 router.get('/removeOffer',requireLogin,offerController.getRemoveOffer)
 router.post('/categoryOffer',requireLogin, offerController.categoryOffer )
 router.get('/removeCatOffer',requireLogin,offerController.getCatRemoveOffer)
-// Export the router
+
 module.exports = router;
 
